@@ -17,7 +17,6 @@ function GameView() {
 	var buttonsUi=undefined;
 	var backgroundUi=undefined;
 	var buttonsUi=undefined;
-	var ySize=0;
 	var levelImage=undefined;
 	var screenXSize=36;
 	var screenYSize=24;
@@ -59,8 +58,6 @@ function GameView() {
 		contextSize.x = blocksize*screenXSize;    
 		contextSize.y = blocksize*screenYSize;
 		hexSize=blocksize;
-		hexHeight= Math.sqrt(3)/2 * hexSize;
-		ySize=25;
 	};
 
 	this.registerMouse = function(buttonsUiIn){
@@ -101,8 +98,11 @@ function GameView() {
     function moveEnd(event){
     }
     
-	this.getYSize = function() {
-		return ySize;
+	this.getScreenSize = function() {
+		return {
+			x:screenXSize,
+			y:screenYSize,
+		};
 	};
 	
 	this.clearBackground = function(){

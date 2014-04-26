@@ -1,7 +1,43 @@
 
+  Graphics
+  	Player
+  	Enemies
+  	Drill tower
 
+  Player movement
+  	end at top/bottom
+  	end at sides
+  	
+  Scrolling
+  	when player is near to the border
 
+  Water flow
+     To free field
+     At all open sides
+     Height is set accordingly
+  
+  Levels
+    Water speed
+    number of enemies
+    
+  Power ups
+    Dynamite
+    Faster Run
+    Stop water
 
+  Collectible objects
+    Random position
+    
 
+  Enemies
+	Movement algorithm
+	Graphics
 
-Sounds
+  Sounds
+    Walk sound
+    Explosion
+    Level won
+    Level start
+    Died
+    Drowned
+    
