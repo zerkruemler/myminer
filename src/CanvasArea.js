@@ -4,8 +4,6 @@ function CanvasArea() {
     var context=undefined;
     var canvasBackground=undefined;
     var contextBackground=undefined;
-    var canvasAnimals=undefined;
-    var contextAnimals=undefined;
     var canvasUi=undefined;
     var contextUi=undefined;
     var size = {};
@@ -54,10 +52,6 @@ function CanvasArea() {
     	return contextUi;
     };
 
-    this.getContextAnimals = function(){
-    	return contextAnimals;
-    };
-    
     this.getSize = function(){
     	return size;
     };
@@ -69,10 +63,6 @@ function CanvasArea() {
 	
 	this.clearScreen = function() {
 		context.clearRect(0,0,size.x,size.y);
-	};
-
-	this.clearAnimals = function() {
-		contextAnimals.clearRect(0,0,size.x,size.y);
 	};
 
 	this.clearUi = function() {
