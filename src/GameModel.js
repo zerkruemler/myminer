@@ -20,6 +20,7 @@ function GameModel() {
 		buttonSelection : new Event(),
 		startLevel 		: new Event(),
 		game 			: new Event(),
+		key             : new Event(),
 	};
 	
 	this.loadLevel = function(levelNumber){
@@ -36,6 +37,11 @@ function GameModel() {
 	this.buttonClicked = function(button){
 		events.buttonSelection.notify(button.id);
 	};
+	
+	this.keyPressed = function(key){
+		events.key.notify(key);
+	};
+	
 	
 	// Cheat functions
 	this.cheat = function(name) {

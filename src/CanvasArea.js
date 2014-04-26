@@ -28,6 +28,15 @@ function CanvasArea() {
     this.removeEventListener = function(name,functionName){
     	canvasUi.removeEventListener(name,functionName);
     };
+    
+	this.addKeyDownEvent =function(callback){
+		window.addEventListener("keydown",callback,true);
+	};
+	this.removeKeyDownEvent =function(callback){
+		window.removeEventListener("keydown",callback,true);
+	};
+
+	
     this.getContextBackground = function(){
     	return contextBackground;
     };

@@ -47,6 +47,10 @@ function GameView() {
 		backgroundUi=backgroundUiIn;
 	};
 	
+	this.getCanvas = function(){
+		return canvas;
+	};
+	
 	this.resize = function(newSize){
 		blocksize = Math.min(newSize.x/30|0,newSize.y/25|0); // |0  = integer value of value make sure blocksize is integer
 		contextSize.x = blocksize*30;    
@@ -101,6 +105,15 @@ function GameView() {
 	this.clearBackground = function(){
 		canvas.clearBackground();
 	};
+	this.clearUi = function(){
+		canvas.clearUi();
+	};
+	
+	this.redrawBackground = function(){
+		this.fillRect(4,4,5,5);
+	};
+	
+	
 	this.clear = function(){
 		canvas.clearScreen();
 	};
@@ -111,14 +124,6 @@ function GameView() {
 	this.setStroke = function(color){
 		context.strokeStyle = color;
 	};
-//	this.setColors = function(colors){
-//		if(colors.fill){
-//			context.fillStyle = colors.fill;
-//		};
-//		if(colors.stroke){
-//			context.strokeStyle = colors.stroke;
-//		};
-//	};
 	
 	this.setLineWidth = function(value) {
 		context.lineWidth = value;

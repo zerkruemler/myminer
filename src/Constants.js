@@ -1,6 +1,6 @@
 var c={
-    CANVAS_SIZE_X : 750,
-    CANVAS_SIZE_Y : 625,
+    CANVAS_SIZE_X : 800,
+    CANVAS_SIZE_Y : 450,
     
     color:{
     	text        : "#000000",
@@ -40,5 +40,26 @@ var c={
 		startFastResourceBee : 304,
 
 	},
+    KEY: {
+    	UP: 38,
+    	DOWN: 40,
+    	LEFT: 37,
+    	RIGHT: 39,
+    	Q:81,
+    	W:87,
+    	E:69,
+    	A:65,
+    	S:83,
+    	D:68,
+    	SPACE:32,
+    	ENTER:13,
+    },
+    DIRECTION : {
+    	UP: 1,
+    	DOWN: 2,
+    	LEFT: 3,
+    	RIGHT: 4,
+    	BUTTON: 5,
+    },
 	
 }; 
