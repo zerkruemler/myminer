@@ -145,9 +145,33 @@ function Level(){
 		}else{
 			throw 'Tile not free';
 		}
+		this.getFreeAround(x,y);
+		
+	};
+	
+	this.getFreeAround = function(x,y) {
+		// Get the tiles around this one which are free
+		around=[];
+		var $this=this;
+		
+		var checkFree = function (xTo,yTo) {
+			if($this.levelFree(x+xTo,y+yTo)===true){
+				around.push({
+					x:x+xTo,
+					y:y+yTo});
+			}
+		};
+		checkFree(0,-1);
+		checkFree(0, 1);
+		checkFree(-1,0);
+		checkFree( 1,0);
+		return around;
 	};
 	
 	this.flow = function(){
-		
+		water.push({
+			x:1,
+			y:1
+		});
 	};
 }
