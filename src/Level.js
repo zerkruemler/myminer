@@ -10,6 +10,7 @@ function Level(){
 	};
 	var levelData=[];
 	var water=[];
+	var ends=[];
 			
 
 	
@@ -120,7 +121,7 @@ function Level(){
 				this.colorAt(startX+addX,startY+addY,'4040FF');
 			}
 		}
-		levelData[y][x]=0;
+		levelData[y][x]=2;
 	};
 	
 	
@@ -140,13 +141,13 @@ function Level(){
 	this.initWater = function(x,y) {
 		if(this.levelFree(x,y)===true){
 			water.push({x:x,y:y});
+			ends.push({x:x,y:y});
+			this.setWater(x,y);
 //			water.x=x;
 //			water.y=y;
 		}else{
 			throw 'Tile not free';
 		}
-		this.getFreeAround(x,y);
-		
 	};
 	
 	this.getFreeAround = function(x,y) {
@@ -169,9 +170,24 @@ function Level(){
 	};
 	
 	this.flow = function(){
-		water.push({
-			x:1,
-			y:1
-		});
+		var endLength=ends.length;
+		for (var endNumber = 0; endNumber < endLength; endNumber++) {
+			var end = ends[endNumber];
+			var frees = this.getFreeAround(end.x,end.y);
+			for (var freeNumber = 0; freeNumber < frees.length; freeNumber++) {
+				var newPos={
+					x:frees[freeNumber].x,
+					y:frees[freeNumber].y						
+				};
+				this.setWater(newPos.x,newPos.y);
+				water.push(newPos);
+				
+				ends[endNumber]=newPos;
+				if(freeNumber>0){
+					// A fork
+					ends.push(newPos);
+				}
+			}
+		}
 	};
 }
