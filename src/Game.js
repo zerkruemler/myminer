@@ -22,9 +22,11 @@ function Game() {
     	
     	createObjects();
     	resetObjects();
-    	
+
+       	sprites.loadSprites(this.loaded);
+    };
+    this.loaded = function(){
     	scenes.setScene(scenesData.title.name);
-    	
         loop();        
     };
 

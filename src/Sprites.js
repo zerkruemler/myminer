@@ -1,7 +1,7 @@
 function Sprites() {
 
 	var sprites = {
-		player : {
+		playerWalk0 : {
 			path : 'player-walk0'
 		},
 		playerWalk1 : {

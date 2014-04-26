@@ -19,6 +19,12 @@ function Level(){
 	this.getLevelSize = function() {
 		return levelSize;
 	};
+	this.getStartPoint = function() {
+		return {
+			x:levelSize.x/2+1,
+			y:7,
+		};
+	};
 	
 	this.addLevelImage = function(imageData,blocksizeIn){
 		levelImage=imageData;
@@ -71,7 +77,7 @@ function Level(){
 			this.colorAt(yPos,yPos,'00ff00');
 		}		
 
-		for (var yBlock = 7; yBlock < levelSize.y; yBlock++) {
+		for (var yBlock = this.getStartPoint().y; yBlock < levelSize.y; yBlock++) {
 			this.setTunnel(levelSize.x/2+1,yBlock);
 			
 		}

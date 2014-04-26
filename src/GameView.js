@@ -73,23 +73,9 @@ function GameView() {
 
 		// Get animation phase
 		var animPhase=Math.floor((playerPos.fine/c.PLAYER.SPEED*3)%3);
-		var animSprite=0;
-		switch (animPhase) {
-		case 0:
-			animSprite='player';
-			break;
-		case 1:
-			animSprite='playerWalk1';
-			break;
-		case 2:
-			animSprite='playerWalk2';
-			break;
-
-		default:
-			break;
-		}
+		var animSprite='playerWalk'+animPhase;
 		// Some oldstyle pixelart here....
-		drawImage(animSprite,x * blocksize, y * blocksize, blocksize*2, blocksize*2);
+		drawImage(animSprite,x * blocksize+gameModel.getXPos(), y * blocksize, blocksize*2, blocksize*2);
 
 //		wipeTraces(playerPos.xFine,playerPos.yFine);
 		
@@ -98,7 +84,7 @@ function GameView() {
 	var drawImage = function(name, x, y){
 		var image = sprites.getSprite(name);
 		try{
-			stage.drawImage(image.image, x, y,blocksize,blocksize);
+			context.drawImage(image.image, x, y,blocksize,blocksize);
 		}catch(e){
 			a=1;
 		}

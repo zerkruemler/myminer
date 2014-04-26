@@ -32,6 +32,7 @@ function GameModel() {
 	
 	this.setLevel = function(levelIn){
 		level=levelIn;
+    	this.resetPlayerPos();
 	};
 	
 	this.getTime = function() {
@@ -64,7 +65,12 @@ function GameModel() {
 	this.keyPressed = function(key){
 		events.key.notify(key);
 	};
-	
+	this.resetPlayerPos = function() {
+		playerPos.x=level.getStartPoint().x;
+		playerPos.y=level.getStartPoint().y;
+		playerPos.xFine=playerPos.x;
+		playerPos.yFine=playerPos.y;
+	};
 	
 	// Cheat functions
 	this.cheat = function(name) {
@@ -173,6 +179,10 @@ function GameModel() {
 		return {
 			x:xTo,
 			y:yTo};
+	};
+	
+	this.getPlayerPos = function() {
+		return playerPos;
 	};
 	
 	var checkDirectionPossible = function(playerPos,to){

@@ -159,6 +159,7 @@ function ScenesData(){
 					view.clearBackground();
 					var xPos = model.getXPos();
 					view.redrawBackground(xPos);
+					view.drawPlayer(model.getPlayerPos());
 //					this.clearBackground=false;
 				}
 				// Updates which are done each frame (fast animations)
