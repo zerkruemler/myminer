@@ -146,7 +146,8 @@ function ScenesData(){
 			},
 			
 			regularCallback : function() {
-				model.setXPos(model.getXPos()-1);
+				model.setXPos(model.getXPos()-0.1);
+				model.movePlayer();
 //				this.clearBackground=true;
 			},
 			

@@ -28,7 +28,7 @@ function Scenes(){
 				function(){
 					allScenes[currentScene].regularCallback.apply(allScenes[currentScene]);
 				},
-				96); //160
+				16); //160
 		
 	};
 

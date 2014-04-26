@@ -86,9 +86,9 @@ function GameView() {
 		try{
 			context.drawImage(image.image, x, y,blocksize,blocksize);
 		}catch(e){
-			a=1;
+			a=b;  // Debug hint
 		}
-	};	
+	};
 
 	this.registerMouse = function(buttonsUiIn){
 		buttonsUi = buttonsUiIn;

@@ -126,11 +126,11 @@ function GameModel() {
 			if(checkDirectionPossible(playerPos,offset)){
 				currentDirection=direction;
 				if(direction!==c.DIRECTION.STOP){
-					event.walk.notify(1); // Start walking (for sound)
+					events.walk.notify(1); // Start walking (for sound)
 				}
 			}else{
 				currentDirection=c.DIRECTION.STOP;
-				event.walk.notify(0);  // Stop walking (for sound)
+				events.walk.notify(0);  // Stop walking (for sound)
 			}
 			direction=c.DIRECTION.STOP;
 		}
@@ -188,8 +188,10 @@ function GameModel() {
 	var checkDirectionPossible = function(playerPos,to){
 
 		var levelSize = level.getLevelSize();
-		if(playerPos.x<2 || playerPos.x>levelSize.x-2 ||
-		   playerPos.y<7 || playerPos.y>levelSize.y-2	){
+		if(playerPos.x<2 && to.x===-1 ||
+		   playerPos.x>levelSize.x-2 && to.x===1 ||
+		   playerPos.y<7 && to.y===-1 ||
+		   playerPos.y>levelSize.y-2 && to.y===1 ){
 			return false;
 		}
 		return true;
