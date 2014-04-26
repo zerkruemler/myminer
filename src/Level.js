@@ -37,7 +37,7 @@ function Level(){
 	this.createLevel = function() {
 		
 		// LevelData
-		for (var levelY = 0; levelY < levelSize.y; levelY++) {
+		for (var levelY = 0; levelY < levelSize.y+1; levelY++) {
 			levelData.push([]);
 			for (var levelX = 0; levelX < levelSize.x; levelX++) {
 				levelData[levelY][levelX]=1;
@@ -157,15 +157,20 @@ function Level(){
 		
 		var checkFree = function (xTo,yTo) {
 			if($this.levelFree(x+xTo,y+yTo)===true){
+				var isUp=false;
+				if(yTo===-1){
+					isUp=true;
+				}
 				around.push({
 					x:x+xTo,
-					y:y+yTo});
+					y:y+yTo,
+					up:isUp});
 			}
 		};
-		checkFree(0,-1);
-		checkFree(0, 1);
-		checkFree(-1,0);
-		checkFree( 1,0);
+		checkFree(-1,0); // Left
+		checkFree( 1,0); // Right
+		checkFree(0, 1); // down
+		checkFree(0,-1); // up
 		return around;
 	};
 	
@@ -175,6 +180,9 @@ function Level(){
 			var end = ends[endNumber];
 			var frees = this.getFreeAround(end.x,end.y);
 			for (var freeNumber = 0; freeNumber < frees.length; freeNumber++) {
+				if(frees[freeNumber].up===true&&freeNumber!==0){
+					continue;
+				}
 				var newPos={
 					x:frees[freeNumber].x,
 					y:frees[freeNumber].y						
