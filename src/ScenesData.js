@@ -18,7 +18,7 @@ function ScenesData(){
 			start: function(){
 				// Add the buttons
 				model.registerEvent('key',function(key) {
-					if(key=c.DIRECTION.BUTTON){
+					if(key===c.DIRECTION.BUTTON){
 						util.scenes.setScene("Game");
 					}
 				});
@@ -139,9 +139,11 @@ function ScenesData(){
 //				model.loadLevel(level);
 				
 				// Add the buttons
+				model.clearEvents('key');
 				util.buttons.removeAll();
 				this.clearBackground=true;
 				model.uiRedrawNeeded();
+				model.startLevel();
 
 			},
 			

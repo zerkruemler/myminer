@@ -32,7 +32,17 @@ function GameModel() {
 	
 	this.setLevel = function(levelIn){
 		level=levelIn;
-    	this.resetPlayerPos();
+	};
+
+	this.startLevel = function(){
+		
+		this.resetPlayerPos();
+		this.registerEvent('key', function(key) {
+			// Direction changed
+			if(key!==c.DIRECTION.BUTTON){
+				direction=key;
+			}
+		});
 	};
 	
 	this.getTime = function() {
@@ -56,6 +66,9 @@ function GameModel() {
 	
 	this.registerEvent = function(name,listener){
 		events[name].attach(listener);
+	};
+	this.clearEvents = function(name){
+		events[name].clearAll();
 	};
 
 	this.buttonClicked = function(button){
@@ -108,13 +121,6 @@ function GameModel() {
 		return screenSize;
 	};
 
-	this.registerEvent('key', function(key) {
-		// Direction changed
-		if(key!==c.DIRECTION.BUTTON){
-			direction=key;
-		}
-	});
-	
 	// Player movement //
 	this.movePlayer= function() {
 		// Moves the player according to the direction
