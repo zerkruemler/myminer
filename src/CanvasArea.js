@@ -1,7 +1,5 @@
 function CanvasArea() {
 
-    var canvas=undefined;
-    var context=undefined;
     var canvasBackground=undefined;
     var contextBackground=undefined;
     var canvasUi=undefined;
@@ -17,18 +15,6 @@ function CanvasArea() {
         canvasBackground.height = size.y;
         canvasBackground.style.border = "2px solid red";
         contextBackground = canvasBackground.getContext('2d');
-
-        canvas = document.getElementById('flower');
-        canvas.width  = size.x;
-        canvas.height = size.y;
-        canvas.style.border = "2px solid black";
-        context = canvas.getContext('2d');
-
-        canvasAnimals = document.getElementById('animals');
-        canvasAnimals.width  = size.x;
-        canvasAnimals.height = size.y;
-        canvasAnimals.style.border = "2px solid orange";
-        contextAnimals = canvasAnimals.getContext('2d');
 
         canvasUi = document.getElementById('ui');
         canvasUi.width  = size.x;

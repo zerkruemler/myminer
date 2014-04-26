@@ -7,13 +7,14 @@ var util={};
 
 function Game() {
 
-//	var canvasArea=undefined;
+	var canvasArea=undefined;
 	var scenes=undefined; 
 	var scenesData =undefined;
-//    var gameModel=undefined;
-//    var gameView=undefined;
-//    var gameController=undefined;
-//    var buttons=undefined;
+    var gameModel=undefined;
+    var gameView=undefined;
+    var gameController=undefined;
+    var buttons=undefined;
+    var buttonsUi=undefined;
     this.start = function() {
     	
     	createObjects();
@@ -26,14 +27,14 @@ function Game() {
 
 
     function createObjects(){
-//        canvasArea     = new CanvasArea();
-//        buttons        = new Buttons();
-//        buttonsUi      = new ButtonsUi();
-//        scenes         = new Scenes();
-//        scenesData     = new ScenesData();
-//        gameModel      = new GameModel();
-//        gameView       = new GameView();
-//        gameController = new GameController();
+        canvasArea     = new CanvasArea();
+        buttons        = new Buttons();
+        buttonsUi      = new ButtonsUi();
+        scenes         = new Scenes();
+        scenesData     = new ScenesData();
+        gameModel      = new GameModel();
+        gameView       = new GameView();
+        gameController = new GameController();
 //        backgroundUi   = new BackgroundUi();
 //        flowerUi       = new FlowerUi();
 //        grassUi        = new GrassUi();
@@ -42,8 +43,8 @@ function Game() {
 //        animalsUi      = new AnimalsUi();
 //        helpTextsUi    = new HelpTextsUi();
 //        
-//        util.buttons = buttons;
-//        util.scenes  = scenes;
+        util.buttons = buttons;
+        util.scenes  = scenes;
                     
     }
     function resetObjects(){
@@ -51,9 +52,6 @@ function Game() {
     	buttons.reset(gameModel);
     	buttonsUi.reset(buttons,gameView);
 
-    	backgroundUi.reset(gameModel);
-    	flowerUi.reset(gameModel);
-    	
         canvasArea.reset();
         scenes.reset(gameModel);
         // Add all scenes

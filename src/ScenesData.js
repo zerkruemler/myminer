@@ -5,7 +5,6 @@ function ScenesData(){
 //		view=gameView;
 //	};
 	var model=undefined;
-	var flowerData=undefined;
 	var cheat=true;
 	var level=1;
 	
@@ -31,17 +30,6 @@ function ScenesData(){
 //						util.scenes.setScene("Game");
 				    }
 				});
-//				util.buttons.addButton({
-//					text:'Garden',
-//					id: c.buttons.garden,
-//					x:11,
-//					y:13,
-//					sx:8,
-//					sy:2,
-//					callback:function(){
-//						util.scenes.setScene("Garden");
-//				    }
-//				});
 				// Cheats:
 				if(cheat===true){
 					util.buttons.addButton({
@@ -58,47 +46,6 @@ function ScenesData(){
 							model.resourceCheat=true;
 					    }
 					});
-					util.buttons.addButton({
-						text:'Start fast',
-						id: c.buttons.startFast,
-						x:0,
-						y:19,
-						sx:9,
-						sy:2,
-						callback:function(){
-							util.scenes.setScene("LevelSelect");
-							model.cheat('fast');
-							model.cheat('fastAnim');
-					    }
-					});
-					util.buttons.addButton({
-						text:'Start Resource',
-						id: c.buttons.startResource,
-						x:0,
-						y:21,
-						sx:9,
-						sy:2,
-						callback:function(){
-							util.scenes.setScene("LevelSelect");
-							model.cheat('fast');
-							model.resourceCheat=true;
-					    }
-					});
-					util.buttons.addButton({
-						text:'Fast + Res. + Bees',
-						id: c.buttons.startFastResourceBee,
-						x:0,
-						y:23,
-						sx:9,
-						sy:2,
-						callback:function(){
-							util.scenes.setScene("LevelSelect");
-							model.cheat('fast');
-							model.cheat('fastAnim');
-							model.cheatEarlyBee=true;
-							model.resourceCheat=true;
-						}
-					});
 				}
 			},
 			exit: function(){
@@ -109,19 +56,15 @@ function ScenesData(){
 				this.layerUi = function() {
 					context=contextUi;
 				};
+				view.layerUi();
 				model.uiRedrawNeeded();
-				view.clear();
-				view.clearUi();
-				view.clearAnimals();
 				view.clearBackground();
 				view.text({
-					text:"Flower Power",
+					text:"Greedy Miner",
 					x:15,y:2,
 					size:3,
 					center:true,
 				});
-//				view.drawBlossom({x:10.03,y:3.63});
-//				view.drawBlossom({x:18.0,y:3.63});
 				
 			},
 	};
@@ -264,60 +207,7 @@ function ScenesData(){
 				
 			},
 	};
-	this.garden = {
-			name : "Garden",
-			clearBackground : false,
-			redrawFlower: 0,
-			
-			start: function(){
-				// Init Model
-				model.reset();
-				model.loadLevel('G'); // Load the garden Level
-				// Load the flowerModel into the model
-				model.loadFlower(flowerData);
-				
-				
-				// Add the buttons
-				util.buttons.removeAll();
-				util.buttons.addButton({
-					text:'Exit',
-					id: c.buttons.start,
-					x:0,
-					y:0,
-					sx:3,
-					sy:2,
-					callback:function(){
-						util.scenes.setScene("Title");
-				    }
-				});
-				this.clearBackground=true;
-			},
-			
-			regularCallback : function() {
-				this.clearBackground=true;
-//				var dayTime = model.getDayTime();
-			},
-			
-			redraw : function(view){
-				if(this.clearBackground===true){
-					view.clearBackground();
-					view.redrawBackground();
-					this.clearBackground=false;
-				}
-				this.redrawFlower-=1;
-				if(this.redrawFlower<=0){
-					this.redrawFlower=5;
-					view.clear();
-					view.redrawFlower();
-					model.updateFlower();
-				}
-				if(model.isUiRedrawNeeded()===true){
-					view.clearUi();
-//					model.updateHelpTexts();
-//					view.drawHelpTexts();
-				}
-			},
-	};
+
 	this.levelWon = {
 			name : "LevelWon",
 			redrawFlower: 0,
@@ -370,69 +260,6 @@ function ScenesData(){
 					view.clearUi();
 					view.showGauges();
 				}
-				view.clearAnimals();
-				view.drawAnimals();
-				// Updates which are done each frame (fast animations)
-				model.updateAnimals();
-			},
-	};
-	this.levelLost = {
-			name : "LevelLost",
-			redrawFlower: 0,
-			
-			start: function(){
-				// Init Model
-				var animals = model.getAnimals();
-				animals.removeBees();
-				// Add the buttons
-				util.buttons.removeAll();
-				util.buttons.addButton({
-					text:'To Title',
-					id: c.buttons.toTitle,
-					x:5,
-					y:8,
-					sx:8,
-					sy:2,
-					callback:function(){
-						util.scenes.setScene("Title");
-				    }
-				});
-				util.buttons.addButton({
-					text:'Replay Level',
-					id: c.buttons.toNextLevel,
-					x:17,
-					y:8,
-					sx:8,
-					sy:2,
-					callback:function(){
-						util.scenes.setScene("Game");
-				    },
-				});
-				model.uiRedrawNeeded();
-			},
-			
-			regularCallback : function() {
-			},
-			
-			redraw : function(view){
-				this.redrawFlower-=1;
-				if(this.redrawFlower<=0){
-					this.redrawFlower=5;
-					view.clear();
-					view.redrawFlower();
-					model.updateFlower();
-				}
-				if(model.isUiRedrawNeeded()===true){
-					view.clearUi();
-					view.showGauges();
-				}
-				view.layerUi();
-				view.text({
-					text:"Level Lost",
-					x:15,y:2,
-					size:3,
-					center:true,
-				});
 				view.clearAnimals();
 				view.drawAnimals();
 				// Updates which are done each frame (fast animations)

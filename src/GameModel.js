@@ -7,9 +7,13 @@ function GameModel() {
 
 	
 	this.reset = function(){
-        oldTime=daystart.getTime();
+        oldTime=this.getTime();
     	uiRedraw=true;
     	events.startLevel.notify();
+	};
+	
+	this.getTime = function() {
+		return new Date();
 	};
 	
 	var events={
