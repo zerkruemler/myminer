@@ -61,5 +61,8 @@ var c={
     	RIGHT: 4,
     	BUTTON: 5,
     },
+    PLAYER: {
+    	SPEED: 5,
+    },
 	
 }; 

@@ -65,6 +65,7 @@ function Game() {
         
         scenesData.reset(gameModel);
         gameModel.reset();
+        gameModel.setLevel(level);
         gameView.reset(gameModel,canvasArea);
         gameController.reset(gameModel,gameView);
         

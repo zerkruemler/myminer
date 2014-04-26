@@ -16,7 +16,7 @@ function Level(){
 		
 	};
 	
-	this.getlevelsize = function() {
+	this.getLevelSize = function() {
 		return levelSize;
 	};
 	

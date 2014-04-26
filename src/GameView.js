@@ -18,8 +18,7 @@ function GameView() {
 	var backgroundUi=undefined;
 	var buttonsUi=undefined;
 	var levelImage=undefined;
-	var screenXSize=36;
-	var screenYSize=24;
+	var screenSize={};
 	
 
 	var $this=this;
@@ -28,6 +27,7 @@ function GameView() {
 		gameModel=gameModelImport;
 		contextBackground=canvasArea.getContextBackground();
 		contextUi=canvasArea.getContextUi();
+		screenSize=gameModel.getScreenSize();
 
 		canvas=canvasArea;
 		this.resize(canvasArea.getSize());
@@ -54,9 +54,9 @@ function GameView() {
 	};
 	
 	this.resize = function(newSize){ // 16/9 or 12/9 (4/3) screen ratio? : 12:8 = 3:2
-		blocksize = Math.min(newSize.x/screenXSize|0,newSize.y/screenYSize|0); // |0  = integer value of value make sure blocksize is integer
-		contextSize.x = blocksize*screenXSize;    
-		contextSize.y = blocksize*screenYSize;
+		blocksize = Math.min(newSize.x/screenSize.x|0,newSize.y/screenSize.y|0); // |0  = integer value of value make sure blocksize is integer
+		contextSize.x = blocksize*screenSize.x;    
+		contextSize.y = blocksize*screenSize.y;
 		hexSize=blocksize;
 	};
 
@@ -98,13 +98,6 @@ function GameView() {
     function moveEnd(event){
     }
     
-	this.getScreenSize = function() {
-		return {
-			x:screenXSize,
-			y:screenYSize,
-		};
-	};
-	
 	this.clearBackground = function(){
 		canvas.clearBackground();
 	};

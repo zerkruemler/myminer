@@ -1,13 +1,13 @@
 
+  Player movement
+  	end at top/bottom
+  	end at sides
+  	
   Graphics
   	Player
   	Enemies
   	Drill tower
 
-  Player movement
-  	end at top/bottom
-  	end at sides
-  	
   Scrolling
   	when player is near to the border
 
