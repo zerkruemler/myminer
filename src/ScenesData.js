@@ -147,17 +147,20 @@ function ScenesData(){
 			},
 			
 			regularCallback : function() {
+				model.setXPos(model.getXPos()+1);
 //				this.clearBackground=true;
 			},
 			
 			redraw : function(view){
 				if(model.isUiRedrawNeeded()===true){
 					view.clearUi();
+					view.createLevelImage();
 				}
 				if(this.clearBackground===true){
 					view.clearBackground();
-					view.redrawBackground();
-					this.clearBackground=false;
+					var xPos = model.getXPos();
+					view.redrawBackground(xPos);
+//					this.clearBackground=false;
 				}
 				// Updates which are done each frame (fast animations)
 //				model.updateAnimals();

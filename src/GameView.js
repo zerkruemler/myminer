@@ -18,6 +18,7 @@ function GameView() {
 	var backgroundUi=undefined;
 	var buttonsUi=undefined;
 	var ySize=0;
+	var levelImage=undefined;
 	
 
 	var $this=this;
@@ -109,8 +110,20 @@ function GameView() {
 		canvas.clearUi();
 	};
 	
-	this.redrawBackground = function(){
+	this.createLevelImage = function() {
+		levelImage=context.createImageData(100,100);
+		for (var i=0;i<levelImage.data.length;i+=4)
+		  {
+		  levelImage.data[i+0]=255;
+		  levelImage.data[i+1]=0;
+		  levelImage.data[i+2]=0;
+		  levelImage.data[i+3]=255;
+		  }
+	};
+
+	this.redrawBackground = function(xPos){
 		this.fillRect(4,4,5,5);
+		context.putImageData(levelImage,xPos,10);		
 	};
 	
 	

@@ -4,6 +4,7 @@ function GameModel() {
 	var oldTime=undefined;
 	var timedifference=undefined;
 	var $this=this;
+	var xPos=0; // Position of the playfield
 
 	
 	this.reset = function(){
@@ -67,6 +68,13 @@ function GameModel() {
 	
 	this.getLevel = function() {
 		return level;
+	};
+	
+	this.getXPos = function() {
+		return xPos;
+	};
+	this.setXPos = function(xPosIn) {
+		xPos=xPosIn;
 	};
 
 }
