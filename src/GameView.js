@@ -75,7 +75,7 @@ function GameView() {
 		var animPhase=Math.floor((playerPos.fine/c.PLAYER.SPEED*3)%3);
 		var animSprite='playerWalk'+animPhase;
 		// Some oldstyle pixelart here....
-		drawImage(animSprite,x * blocksize+gameModel.getXPos(), y * blocksize, blocksize*2, blocksize*2);
+		drawImage(animSprite,(x+gameModel.getXPos()) * blocksize, y * blocksize, blocksize*2, blocksize*2);
 
 //		wipeTraces(playerPos.xFine,playerPos.yFine);
 		
@@ -144,7 +144,7 @@ function GameView() {
 
 	this.redrawBackground = function(xPos){
 		this.fillRect(4,4,5,5);
-		context.putImageData(levelImage,xPos,10);		
+		context.putImageData(levelImage,xPos*blocksize,10);		
 	};
 	
 	

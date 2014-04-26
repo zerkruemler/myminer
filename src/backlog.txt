@@ -1,10 +1,10 @@
 
   Player movement
-  	end at top/bottom
-  	end at sides
+**  	end at top/bottom
+**  	end at sides
   	
   Graphics
-  	Player
+*  	Player
   	Enemies
   	Drill tower
 

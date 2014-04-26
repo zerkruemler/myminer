@@ -83,6 +83,7 @@ function GameModel() {
 		playerPos.y=level.getStartPoint().y;
 		playerPos.xFine=playerPos.x;
 		playerPos.yFine=playerPos.y;
+		xPos=playerPos.x/2*-1;
 	};
 	
 	// Cheat functions
@@ -155,6 +156,16 @@ function GameModel() {
 		}
 		playerPos.xFine=playerPos.x+xTo*playerPos.fine/c.PLAYER.SPEED;
 		playerPos.yFine=playerPos.y+yTo*playerPos.fine/c.PLAYER.SPEED;
+		
+		// Scrolling
+		// Right border
+		if(xPos*-1+screenSize.x+-10<playerPos.xFine){
+			xPos=(-screenSize.x+playerPos.xFine+10)*-1;
+		}
+		if(xPos*-1+10>playerPos.xFine){
+			xPos=(playerPos.xFine-10)*-1;
+		}
+		
 		return direction;
 		
 	};
@@ -195,9 +206,9 @@ function GameModel() {
 
 		var levelSize = level.getLevelSize();
 		if(playerPos.x<2 && to.x===-1 ||
-		   playerPos.x>levelSize.x-2 && to.x===1 ||
+		   playerPos.x>levelSize.x-3 && to.x===1 ||
 		   playerPos.y<7 && to.y===-1 ||
-		   playerPos.y>levelSize.y-2 && to.y===1 ){
+		   playerPos.y>levelSize.y-3 && to.y===1 ){
 			return false;
 		}
 		return true;

@@ -70,8 +70,8 @@ function Level(){
 				this.colorAt(xStart+8,yPos,'0050f0');
 			}
 		};
-		drawLimit.call(this,10);
-		drawLimit.call(this,levelImage.width-20);
+		drawLimit.call(this,4);
+		drawLimit.call(this,levelImage.width-14);
 		
 		for (var yPos = 0; yPos < levelImage.height; yPos++) {
 			this.colorAt(yPos,yPos,'00ff00');

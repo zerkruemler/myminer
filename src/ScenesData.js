@@ -148,7 +148,7 @@ function ScenesData(){
 			},
 			
 			regularCallback : function() {
-				model.setXPos(model.getXPos()-0.1);
+//				model.setXPos(model.getXPos()-0.1);
 				model.movePlayer();
 //				this.clearBackground=true;
 			},
@@ -160,8 +160,7 @@ function ScenesData(){
 				}
 				if(this.clearBackground===true){
 					view.clearBackground();
-					var xPos = model.getXPos();
-					view.redrawBackground(xPos);
+					view.redrawBackground(model.getXPos());
 					view.drawPlayer(model.getPlayerPos());
 //					this.clearBackground=false;
 				}
