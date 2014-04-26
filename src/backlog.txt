@@ -1,21 +1,21 @@
+**  Scrolling
+**  	when player is near to the border
 
-  Player movement
+**  Player movement
 **  	end at top/bottom
 **  	end at sides
   	
-  Graphics
-*  	Player
-  	Enemies
-  	Drill tower
-
-  Scrolling
-  	when player is near to the border
 
   Water flow
      To free field
      At all open sides
      Height is set accordingly
   
+  Graphics
+*  	Player
+  	Enemies
+  	Drill tower
+
   Levels
     Water speed
     number of enemies

@@ -207,7 +207,7 @@ function GameModel() {
 		var levelSize = level.getLevelSize();
 		if(playerPos.x<2 && to.x===-1 ||
 		   playerPos.x>levelSize.x-3 && to.x===1 ||
-		   playerPos.y<7 && to.y===-1 ||
+		   playerPos.y<=7 && to.y===-1 ||
 		   playerPos.y>levelSize.y-3 && to.y===1 ){
 			return false;
 		}

@@ -9,6 +9,7 @@ function Level(){
 			y:24
 	};
 	var levelData=[];
+	var water=[];
 			
 
 	
@@ -19,6 +20,7 @@ function Level(){
 	this.getLevelSize = function() {
 		return levelSize;
 	};
+	
 	this.getStartPoint = function() {
 		return {
 			x:levelSize.x/2+1,
@@ -32,18 +34,24 @@ function Level(){
 	};
 	
 	this.createLevel = function() {
-		var base=0;
-		var ypercent=0;
 		
 		// LevelData
 		for (var levelY = 0; levelY < levelSize.y; levelY++) {
-			levelData.push("");
+			levelData.push([]);
 			for (var levelX = 0; levelX < levelSize.x; levelX++) {
 				levelData[levelY][levelX]=1;
 			}
 		}
-		
+		// Add main funnel
+		for (var yBlock = this.getStartPoint().y; yBlock < levelSize.y; yBlock++) {
+			this.setTunnel(levelSize.x/2+1,yBlock);
+		}
+	};
+
+	this.drawLevelImage = function() {
 		// Background
+		var base=0;
+		var ypercent=0;
 		for (var yPos = 0; yPos < levelImage.height*levelImage.width*4; yPos+=levelImage.width*4) {
 			ypercent=yPos/(levelImage.height*levelImage.width*4)*255;
 			for (var xPos = 0; xPos < levelImage.width*4; xPos+=4) {
@@ -77,10 +85,10 @@ function Level(){
 			this.colorAt(yPos,yPos,'00ff00');
 		}		
 
-		for (var yBlock = this.getStartPoint().y; yBlock < levelSize.y; yBlock++) {
-			this.setTunnel(levelSize.x/2+1,yBlock);
-			
-		}
+//		for (var yBlock = this.getStartPoint().y; yBlock < levelSize.y; yBlock++) {
+//			this.setTunnel(levelSize.x/2+1,yBlock);
+//			
+//		}
 	};
 	
 	this.colorAt = function(x,y,color){
@@ -101,5 +109,45 @@ function Level(){
 			}
 		}
 		levelData[y][x]=0;
+	};
+
+	this.setWater = function(x,y,flow){
+		// shows some water at the position
+		var startX=x*blocksize;
+		var startY=y*blocksize;
+		for (var addX = 0; addX < blocksize; addX++) {
+			for (var addY = 0; addY < blocksize; addY++) {
+				this.colorAt(startX+addX,startY+addY,'4040FF');
+			}
+		}
+		levelData[y][x]=0;
+	};
+	
+	
+	// Water //
+	this.getWater = function(){
+		return water;
+	};
+	
+	this.levelFree = function(x,y){
+		if(levelData[y][x]===0){
+			return true;
+		}else{
+			return false;
+		};
+	};
+
+	this.initWater = function(x,y) {
+		if(this.levelFree(x,y)===true){
+			water.push({x:x,y:y});
+//			water.x=x;
+//			water.y=y;
+		}else{
+			throw 'Tile not free';
+		}
+	};
+	
+	this.flow = function(){
+		
 	};
 }
