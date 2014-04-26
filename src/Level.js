@@ -9,6 +9,13 @@ function Level(){
 		
 	};
 	
+	this.getlevelsize = function() {
+		return{
+			x:10,
+			y:10,
+		};
+	};
+	
 	this.addLevelImage = function(imageData,blocksizeIn){
 		levelImage=imageData;
 		blocksize=blocksizeIn;
@@ -51,14 +58,9 @@ function Level(){
 		for (var yPos = 0; yPos < levelImage.height; yPos++) {
 			this.colorAt(yPos,yPos,'00ff00');
 		}		
+
 		
-		
-//		for (var i=0;i<levelImage.data.length;i+=4){
-//			levelImage.data[i+0]=255;
-//			levelImage.data[i+1]=0;
-//			levelImage.data[i+2]=0;
-//			levelImage.data[i+3]=255;
-//		}
+		this.setTunnel(5,5);
 	};
 	
 	this.colorAt = function(x,y,color){
@@ -71,6 +73,12 @@ function Level(){
 	
 	this.setTunnel = function(x,y){
 		// sets a tunnelpart according to the blocksize
+		var startX=x*blocksize;
+		var startY=y*blocksize;
+		for (var addX = 0; addX < blocksize; addX++) {
+			for (var addY = 0; addY < blocksize; addY++) {
+				this.colorAt(startX+addX,startY+addY,'000000');
+			}
+		}
 	};
-	
 }

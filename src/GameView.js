@@ -19,6 +19,8 @@ function GameView() {
 	var buttonsUi=undefined;
 	var ySize=0;
 	var levelImage=undefined;
+	var screenXSize=36;
+	var screenYSize=24;
 	
 
 	var $this=this;
@@ -53,9 +55,9 @@ function GameView() {
 	};
 	
 	this.resize = function(newSize){ // 16/9 or 12/9 (4/3) screen ratio? : 12:8 = 3:2
-		blocksize = Math.min(newSize.x/36|0,newSize.y/24|0); // |0  = integer value of value make sure blocksize is integer
-		contextSize.x = blocksize*36;    
-		contextSize.y = blocksize*24;
+		blocksize = Math.min(newSize.x/screenXSize|0,newSize.y/screenYSize|0); // |0  = integer value of value make sure blocksize is integer
+		contextSize.x = blocksize*screenXSize;    
+		contextSize.y = blocksize*screenYSize;
 		hexSize=blocksize;
 		hexHeight= Math.sqrt(3)/2 * hexSize;
 		ySize=25;
