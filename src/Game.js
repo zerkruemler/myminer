@@ -62,6 +62,8 @@ function Game() {
         gameModel.reset();
         gameView.reset(gameModel,canvasArea);
         gameController.reset(gameModel,gameView);
+        
+        gameView.addUi('buttons', buttonsUi);
     }
 
     loop = function() {

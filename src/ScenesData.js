@@ -65,6 +65,7 @@ function ScenesData(){
 					size:3,
 					center:true,
 				});
+				view.drawButtons();
 				
 			},
 	};

@@ -55,16 +55,12 @@ function ButtonsUi() {
 //	        stage.strokeRect(x,y,sx,sy);
         }else{
         	// Draw the button
-        	view.setColors({
-        		fill : fillColor,
-        		stroke : borderColor,
-        	});
+        	view.setFill(fillColor);
+        	view.setStroke(borderColor);
         	view.fillRect(x,y,sx,sy);
 	        view.strokeRect(x,y,sx,sy);
-        	
-        	view.setColors({
-        		fill : textColor
-        	});
+       	
+        	view.setFill(textColor);
         	view.text({
         		text: text,
         		x   : x+sx/2,

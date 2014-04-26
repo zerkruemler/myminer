@@ -16,8 +16,7 @@ function GameView() {
 	var ui={};
 	var buttonsUi=undefined;
 	var backgroundUi=undefined;
-	var optionsUi=undefined;
-	var options=undefined;
+	var buttonsUi=undefined;
 	var ySize=0;
 	
 
@@ -90,7 +89,7 @@ function GameView() {
 	};
     
     function moveAround(event){
-		var mouse=new Mouse(event);
+//		var mouse=new Mouse(event);
     };
     function moveEnd(event){
     }
@@ -106,6 +105,12 @@ function GameView() {
 		canvas.clearScreen();
 	};
 
+	this.setFill = function(color){
+		context.fillStyle = color;
+	};
+	this.setStroke = function(color){
+		context.strokeStyle = color;
+	};
 //	this.setColors = function(colors){
 //		if(colors.fill){
 //			context.fillStyle = colors.fill;
@@ -204,6 +209,10 @@ function GameView() {
 		}
 		context.fillText(textData.text,textData.x,textData.y);
     	context.globalAlpha=1;
+	};
+	
+	this.drawButtons = function(){
+		ui.buttons.drawAll();
 	};
 	
 	this.checkButtonClicked = function(button,mouse){
