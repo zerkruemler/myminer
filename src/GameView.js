@@ -19,6 +19,7 @@ function GameView() {
 	var buttonsUi=undefined;
 	var levelImage=undefined;
 	var screenSize={};
+	var sprites=undefined;
 	
 
 	var $this=this;
@@ -42,6 +43,10 @@ function GameView() {
 		ui[uiName]=uiObject;
 	};
 	
+	this.addSprites = function(spritesIn){
+		sprites=spritesIn;
+	};
+	
 	this.layerUi = function() {
 		context=contextUi;
 	};
@@ -59,6 +64,45 @@ function GameView() {
 		contextSize.y = blocksize*screenSize.y;
 		hexSize=blocksize;
 	};
+	
+	this.drawPlayer=function(playerPos){
+		var x=playerPos.xFine;
+		var y=playerPos.yFine;
+//			stage.fillStyle = 'green';
+//			stage.fillRect(x * blocksize, y * blocksize, blocksize*2, blocksize*2);
+
+		// Get animation phase
+		var animPhase=Math.floor((playerPos.fine/c.PLAYER.SPEED*3)%3);
+		var animSprite=0;
+		switch (animPhase) {
+		case 0:
+			animSprite='player';
+			break;
+		case 1:
+			animSprite='playerWalk1';
+			break;
+		case 2:
+			animSprite='playerWalk2';
+			break;
+
+		default:
+			break;
+		}
+		// Some oldstyle pixelart here....
+		drawImage(animSprite,x * blocksize, y * blocksize, blocksize*2, blocksize*2);
+
+//		wipeTraces(playerPos.xFine,playerPos.yFine);
+		
+	};
+
+	var drawImage = function(name, x, y){
+		var image = sprites.getSprite(name);
+		try{
+			stage.drawImage(image.image, x, y,blocksize,blocksize);
+		}catch(e){
+			a=1;
+		}
+	};	
 
 	this.registerMouse = function(buttonsUiIn){
 		buttonsUi = buttonsUiIn;
