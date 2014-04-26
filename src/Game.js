@@ -15,6 +15,8 @@ function Game() {
     var gameController=undefined;
     var buttons=undefined;
     var buttonsUi=undefined;
+    var level=undefined;
+    
     this.start = function() {
     	
     	createObjects();
@@ -35,6 +37,7 @@ function Game() {
         gameModel      = new GameModel();
         gameView       = new GameView();
         gameController = new GameController();
+        level          = new Level();
 //        backgroundUi   = new BackgroundUi();
 //        flowerUi       = new FlowerUi();
 //        grassUi        = new GrassUi();
@@ -51,6 +54,8 @@ function Game() {
     	
     	buttons.reset(gameModel);
     	buttonsUi.reset(buttons,gameView);
+    	
+    	level.reset();
 
         canvasArea.reset();
         scenes.reset(gameModel);
@@ -64,6 +69,7 @@ function Game() {
         gameController.reset(gameModel,gameView);
         
         gameView.addUi('buttons', buttonsUi);
+        gameView.addUi('level',level);
     }
 
     loop = function() {

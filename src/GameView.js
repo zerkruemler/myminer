@@ -52,10 +52,10 @@ function GameView() {
 		return canvas;
 	};
 	
-	this.resize = function(newSize){
-		blocksize = Math.min(newSize.x/30|0,newSize.y/25|0); // |0  = integer value of value make sure blocksize is integer
-		contextSize.x = blocksize*30;    
-		contextSize.y = blocksize*25;
+	this.resize = function(newSize){ // 16/9 or 12/9 (4/3) screen ratio? : 12:8 = 3:2
+		blocksize = Math.min(newSize.x/36|0,newSize.y/24|0); // |0  = integer value of value make sure blocksize is integer
+		contextSize.x = blocksize*36;    
+		contextSize.y = blocksize*24;
 		hexSize=blocksize;
 		hexHeight= Math.sqrt(3)/2 * hexSize;
 		ySize=25;
@@ -111,14 +111,10 @@ function GameView() {
 	};
 	
 	this.createLevelImage = function() {
-		levelImage=context.createImageData(100,100);
-		for (var i=0;i<levelImage.data.length;i+=4)
-		  {
-		  levelImage.data[i+0]=255;
-		  levelImage.data[i+1]=0;
-		  levelImage.data[i+2]=0;
-		  levelImage.data[i+3]=255;
-		  }
+		levelImage=context.createImageData(contextSize.x*2,contextSize.y-blocksize);
+		ui.level.addLevelImage(levelImage,blocksize);
+		ui.level.createLevel();
+		
 	};
 
 	this.redrawBackground = function(xPos){

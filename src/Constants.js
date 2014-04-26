@@ -1,6 +1,6 @@
 var c={
-    CANVAS_SIZE_X : 800,
-    CANVAS_SIZE_Y : 450,
+    CANVAS_SIZE_X : 600, //3
+    CANVAS_SIZE_Y : 400, //2
     
     color:{
     	text        : "#000000",

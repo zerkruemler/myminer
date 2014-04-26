@@ -22,11 +22,12 @@ function ScenesData(){
 						util.scenes.setScene("Game");
 					}
 				});
+				model.uiRedrawNeeded();
 				util.buttons.removeAll();
 				util.buttons.addButton({
 					text:'Start',
 					id: c.buttons.start,
-					x:11,
+					x:18-4,
 					y:10,
 					sx:8,
 					sy:2,
@@ -58,19 +59,17 @@ function ScenesData(){
 			},
 			
 			redraw : function(view){
-				this.layerUi = function() {
-					context=contextUi;
-				};
-				view.layerUi();
-				model.uiRedrawNeeded();
-				view.clearBackground();
-				view.text({
-					text:"Greedy Miner",
-					x:15,y:2,
-					size:3,
-					center:true,
-				});
-				view.drawButtons();
+				if(model.isUiRedrawNeeded()){
+					view.layerUi();
+					view.clearBackground();
+					view.text({
+						text:"Miner",
+						x:18,y:2,
+						size:3,
+						center:true,
+					});
+					view.drawButtons();
+				}
 				
 			},
 	};
@@ -147,7 +146,7 @@ function ScenesData(){
 			},
 			
 			regularCallback : function() {
-				model.setXPos(model.getXPos()+1);
+				model.setXPos(model.getXPos()-1);
 //				this.clearBackground=true;
 			},
 			
