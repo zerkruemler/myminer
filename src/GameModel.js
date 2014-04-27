@@ -294,6 +294,24 @@ function GameModel() {
 		   playerPos.y>levelSize.y-3 && to.y===1 ){
 			return false;
 		}
+		if(level.levelTile(playerPos.x+to.x,playerPos.y+to.y)===0){
+			// Already free, don't do additional checks
+			return true;
+		}else{
+			// Need to dig. Check if a cave will be created
+			if(level.levelTile(playerPos.x+to.x+to.y,playerPos.y+to.y+to.x)===0){
+				// an empty space below-Beware;
+				return false;
+			}
+			if(level.levelTile(playerPos.x+to.x-to.y,playerPos.y+to.y-to.x)===0){
+				// an empty space above-Beware;
+				return false;
+			}
+		}
+		if(level.levelTile(playerPos.x+to.x,playerPos.y+to.y)===2){
+			// Don't dig in the water
+			return false;
+		}		
 		return true;
 	};
 	

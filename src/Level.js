@@ -258,7 +258,7 @@ function Level(){
 		}
 	};
 	
-	this.getFreeAround = function(x,y,tile) {
+	this.getFreeAround = function(x,y,tile,diagonal) {
 		if(tile===undefined){
 			tile=0;
 		}
@@ -278,10 +278,17 @@ function Level(){
 					up:isUp});
 			}
 		};
-		checkFree(-1,0); // Left
-		checkFree( 1,0); // Right
-		checkFree(0, 1); // down
-		checkFree(0,-1); // up
+		if(diagonal===true){
+			checkFree(-1,-1); // Upper Left
+			checkFree( 1,-1); // Upper Right
+			checkFree(-1, 1); // Lower Left
+			checkFree( 1,-1); // Lower Right
+		}else{
+			checkFree(-1,0); // Left
+			checkFree( 1,0); // Right
+			checkFree(0, 1); // down
+			checkFree(0,-1); // up
+		}
 		return around;
 	};
 	
