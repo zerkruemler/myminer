@@ -19,13 +19,15 @@ function GameModel() {
 			y:24
 	};
 	var level = undefined;
-//	var scores = {
-//		level:1,
-//		
-//		
-//	};
+	var scores = {
+		level:1,
+		cash:0,
+		lives:0
+	};
 
-
+	this.addCash = function(value) {
+		scores.cash+=value;
+	};
 	
 	this.reset = function(){
         oldTime=this.getTime();
@@ -34,9 +36,19 @@ function GameModel() {
     	direction=c.DIRECTION.STOP;
     	currentDirection=c.DIRECTION.STOP;
 	};
+	this.resetToMenu = function() {
+		this.reset();
+		scores.level=1;
+		scores.cash=0;
+		scores.lives=3;
+	};
 	
 	this.setLevel = function(levelIn){
 		level=levelIn;
+	};
+	
+	this.nextLevel = function() {
+		scores.level+=1;
 	};
 
 	this.startLevel = function(){
@@ -58,6 +70,10 @@ function GameModel() {
 				direction=c.DIRECTION.STOP;
 			}
 		});
+	};
+	
+	this.getScores = function(){
+		return scores;
 	};
 	
 	this.getTime = function() {
@@ -185,6 +201,7 @@ function GameModel() {
 				playerPos.y+=yTo;
 				if(level.levelTile(playerPos.x,playerPos.y)===2){
 					// player drowned
+					this.die();
 					events.drowned.notify();
 				}
 				this.digTo(playerPos.x,playerPos.y);
@@ -193,6 +210,7 @@ function GameModel() {
 			// Standing around
 			if(level.levelTile(playerPos.x,playerPos.y)===2){
 				// player drowned
+				this.die();
 				events.drowned.notify();
 			}
 		}
@@ -261,36 +279,64 @@ function GameModel() {
 			break;
 		case 'A':
 			erase([]);
+			this.collectObject(1);
 			break;
 		case 'B':
 			erase([1,0]);
+			this.collectObject(2);
 			break;
 		case 'C':
 			erase([-1,0]);
+			this.collectObject(2);
 			break;
 		case 'D':
 			erase([0,1]);
+			this.collectObject(3);
 			break;
 		case 'E':
 			erase([0,-1]);
+			this.collectObject(3);
 			break;
 		case 'F':
 			erase([1,0,0,1,1,1]);
+			this.collectObject(4);
 			break;
 		case 'G':
 			erase([-1,0,0,1,-1,1]);
+			this.collectObject(4);
 			break;
 		case 'H':
 			erase([1,0,0,-1,1,-1]);
+			this.collectObject(4);
 			break;
 		case 'I':
 			erase([-1,0,0,-1,-1,-1]);
+			this.collectObject(4);
 			break;
 
 		default:
 			break;
 		}
 		// Set the tunnel part
+	};
+	
+	this.collectObject =function(number){
+		switch (number) {
+		case 1:
+			this.addCash(100);
+			break;
+		case 2:
+			this.addCash(300);
+			break;
+		case 3:
+			this.addCash(600);
+			break;
+		case 4:
+			this.addCash(1000);
+			break;
+		default:
+			break;
+		}
 	};
 	
 	
@@ -326,6 +372,10 @@ function GameModel() {
 			return false;
 		}		
 		return true;
+	};
+	
+	this.die = function(){
+		scores.lives-=1;
 	};
 	
 

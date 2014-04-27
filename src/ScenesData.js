@@ -23,37 +23,21 @@ function ScenesData(){
 						util.scenes.setScene("Game");
 					}
 				});
+				model.resetToMenu();
 				model.uiRedrawNeeded();
 				util.buttons.removeAll();
 				util.buttons.addButton({
-					text:'Start',
+					text:'Space to Start',
 					id: c.buttons.start,
-					x:18-4,
+					x:18-6,
 					y:10,
-					sx:8,
+					sx:12,
 					sy:2,
 					callback:function(){
 						util.scenes.setScene("LevelSelect");
 //						util.scenes.setScene("Game");
 				    }
 				});
-//				// Cheats:
-//				if(cheat===true){
-//					util.buttons.addButton({
-//						text:'Start fast + Resource',
-//						id: c.buttons.startFastResource,
-//						x:0,
-//						y:17,
-//						sx:9,
-//						sy:2,
-//						callback:function(){
-//							util.scenes.setScene("LevelSelect");
-//							model.cheat('fast');
-//							model.cheat('fastAnim');
-//							model.resourceCheat=true;
-//					    }
-//					});
-//				}
 			},
 			exit: function(){
 				util.buttons.removeAll();
@@ -63,8 +47,9 @@ function ScenesData(){
 				if(model.isUiRedrawNeeded()){
 					view.layerUi();
 					view.clearBackground();
+					view.clearUi();
 					view.text({
-						text:"Miner",
+						text:"Flooded Mines",
 						x:18,y:2,
 						size:3,
 						center:true,
@@ -74,62 +59,6 @@ function ScenesData(){
 				
 			},
 	};
-//	this.levelSelect = {
-//			name : "LevelSelect",
-//			clearBackground : false,
-//			
-//			start: function(){
-//				// Add the buttons
-//				util.buttons.removeAll();
-//				model.reset();
-//
-//				var locked=true;
-//				var xAmmount=4;
-//				var yAmmount=3;
-//				var xSize = 6;
-//				var ySize = 7;
-//				for (var x = 0; x < xAmmount; x++) {
-//					for (var y = 0; y < yAmmount; y++) {
-//						var number=y*xAmmount+x;
-//						if(number==0){
-//							locked=false;
-//						};
-//						if(model.levelExists(number+1)===true){
-//							locked=false;
-//						}else{
-//							locked=true;
-//						}
-//						util.buttons.addButton({
-//							locked:locked,
-//							text:number+1,
-//							id: number+201,
-//							x:x*xSize+3.5,
-//							y:y*ySize+2,
-//							sx:xSize-1,
-//							sy:ySize-1,
-//							callback: function(buttonId) {
-//								level=buttonId-200;
-//								util.scenes.setScene("Game");
-//							}
-//						});
-//					}
-//				}				
-//				this.clearBackground=true;
-//			},
-//			
-//			regularCallback : function() {
-//				this.clearBackground=true;
-//			},
-//			
-//			redraw : function(view){
-//				if(this.clearBackground===true){
-//					view.clearBackground();
-//				}
-//				if(model.isUiRedrawNeeded()===true){
-//					view.clearUi();
-//				}
-//			},
-//	};
 
 	this.game = {
 			name : "Game",
@@ -140,7 +69,8 @@ function ScenesData(){
 			start: function(){
 				// Init Model
 //				model.loadLevel(level);
-				
+				this.delay=10;
+				this.counter=0;
 				// Add the buttons
 				model.clearEvents('key');
 				util.buttons.removeAll();
@@ -198,6 +128,7 @@ function ScenesData(){
 		
 		start: function(){
 			model.uiRedrawNeeded();
+			model.nextLevel();
 		},
 		
 		regularCallback : function() {
@@ -226,16 +157,25 @@ function ScenesData(){
 	this.died = {
 		name : "Died",
 		counter:0,
+		wait:100,
 		
 		start: function(){
 			model.uiRedrawNeeded();
+			if(model.getScores().lives===0){
+				this.wait=200;
+			}
 		},
 		
 		regularCallback : function() {
 			this.counter++;
-			if(this.counter>100){
+			if(this.counter>this.wait){
 				this.counter=0;
-				util.scenes.setScene("Game");
+				var scores = model.getScores();
+				if(scores.lives===0){
+					util.scenes.setScene("Title");
+				}else{
+					util.scenes.setScene("Game");
+				}
 			}
 		},
 		
@@ -243,12 +183,24 @@ function ScenesData(){
 			if(model.isUiRedrawNeeded()){
 				view.layerUi();
 				view.clearBackground();
-				view.text({
-					text:"You are Dead",
-					x:18,y:2,
-					size:4,
-					center:true,
-				});
+				if(model.getScores().lives===0){
+					view.text({
+						text:"Game Over",
+						x:18,y:12,
+						size:6,
+						outline:1,
+//						color:  '#FF5050',
+						color: '#800000',
+						center:true,
+					});
+				}else{
+					view.text({
+						text:"You are Dead",
+						x:18,y:2,
+						size:4,
+						center:true,
+					});
+				}
 			}
 		},
 	};

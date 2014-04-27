@@ -233,7 +233,8 @@ function GameView() {
 		var bold = textData.bold || 'bold ';
 		textSize*=size;
 		if(textData.color!==undefined){
-			this.circularGradient(textData.x/blocksize, textData.y/blocksize,size*3,textData.color,textData.color2 || '0,0,64');
+			context.fillStyle=textData.color;
+//			this.circularGradient(textData.x/blocksize, textData.y/blocksize,size*3,textData.color,textData.color2 || '0,0,64');
 		}else{
 			context.fillStyle=c.color.text;
 		}
@@ -277,7 +278,25 @@ function GameView() {
     };
     
     this.drawScores = function() {
-		
+    	var scores = gameModel.getScores();
+		this.text({
+			x:1,
+			y:0,
+			size:2,
+			text:'Level: '+scores.level
+		});
+		this.text({
+			x:14,
+			y:0,
+			size:2,
+			text:'$: '+scores.cash
+		});
+		this.text({
+			x:28,
+			y:0,
+			size:2,
+			text:'Lives: '+scores.lives
+		});
 	};
     
 }
