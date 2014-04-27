@@ -4,6 +4,7 @@
 **  Player movement
 **  	end at top/bottom
 **  	end at sides
+		don't allow caves
 
   Water flow
 **   To free field

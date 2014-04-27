@@ -113,15 +113,23 @@ function Level(){
 		var leftRight=0;
 		for (var objectNumber = 0; objectNumber < ammount; objectNumber++) {
 			// First get a position
-			posX=Math.floor(Math.random()*(levelSize.x/2-6))+3;
-			posY=Math.floor(Math.random()*(levelSize.y-1))+3;
-			type=Math.floor(Math.random()*4);
-			// Distribute the objects evenly to left and right
-			posX+=leftRight*levelSize.x/2;
+			do{
+				posX=Math.floor(Math.random()*(levelSize.x/2-6))+3;
+				Math.random();
+				posY=Math.floor(Math.random()*(levelSize.y-9))+7;
+				type=Math.floor(Math.random()*4);
+				// Distribute the objects evenly to left and right
+				posX+=leftRight*levelSize.x/2;
+				// Check if set is possible
+			}while((this.setPosible===false));
 			leftRight=1-leftRight;
 			// Now set them
 			this.setObject(posX,posY,type);
 		};
+	};
+	
+	this.setPossible = function() {
+		return false;
 	};
 	
 	this.setObject = function(x,y,type) {
@@ -147,12 +155,12 @@ function Level(){
 		case 3:
 			this.copyImage(x,y,'F');
 			levelData[y][x]='F';
-			this.copyImage(x,y+1,'G');
-			levelData[y+1][x]='G';
-			this.copyImage(x,y,'H');
-			levelData[y][x]='H';
-			this.copyImage(x,y+1,'I');
-			levelData[y+1][x]='I';
+			this.copyImage(x+1,y,'G');
+			levelData[y][x+1]='G';
+			this.copyImage(x,y+1,'H');
+			levelData[y+1][x]='H';
+			this.copyImage(x+1,y+1,'I');
+			levelData[y+1][x+1]='I';
 			break;
 		default:
 			break;
@@ -187,6 +195,24 @@ function Level(){
 			}
 		}
 		levelData[y][x]=0;
+	};
+	this.setRock = function(x,y){
+		// sets a tunnelpart according to the blocksize
+		var startX=x*blocksize;
+		var startY=y*blocksize;
+		for (var addX = 0; addX < blocksize; addX++) {
+			for (var addY = 0; addY < blocksize; addY++) {
+
+				var ypercent=(startY+addY)/levelImage.height*255;
+				var color='FF4040';
+//						levelImage.data[base+0]=255-ypercent/4;
+//						levelImage.data[base+1]=255-ypercent;
+//						levelImage.data[base+2]=40;
+//						levelImage.data[base+3]=255;
+				this.colorAt(startX+addX,startY+addY,'FF0000');
+			}
+		}
+		levelData[y][x]=1;
 	};
 
 	this.setWater = function(x,y,flow){

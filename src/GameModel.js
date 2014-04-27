@@ -157,7 +157,7 @@ function GameModel() {
 					// player drowned
 					events.drowned.notify();
 				}
-				level.setTunnel(playerPos.x,playerPos.y);
+				this.digTo(playerPos.x,playerPos.y);
 			}
 		}else{
 			// Standing around
@@ -209,6 +209,62 @@ function GameModel() {
 			x:xTo,
 			y:yTo};
 	};
+
+	this.digTo = function(xPos,yPos) {
+		var erase = function(allTiles) {
+			level.setTunnel(xPos,yPos);
+			for (var tileNumber = 0; tileNumber < allTiles.length; tileNumber+=2) {
+				// Set all other tiles to solid rock
+				level.setRock(xPos+allTiles[tileNumber],yPos+allTiles[tileNumber+1]);
+			}
+		};
+		// Check if something was collected
+		var tile = level.levelTile(xPos,yPos);
+		// A collectible, see which other fields need to be erased
+		// A= Single object
+		// B/C = Object which is two fields wide
+		// D
+		// E = Object which is two fields high
+		// F/G
+		// H/I = Object which is four fields big
+		switch (tile) {
+		case 1:  // Normal rock
+			erase([]);
+			break;
+		case 'A':
+			erase([]);
+			break;
+		case 'B':
+			erase([1,0]);
+			break;
+		case 'C':
+			erase([-1,0]);
+			break;
+		case 'D':
+			erase([0,1]);
+			break;
+		case 'E':
+			erase([0,-1]);
+			break;
+		case 'F':
+			erase([1,0,0,1,1,1]);
+			break;
+		case 'G':
+			erase([-1,0,0,1,-1,1]);
+			break;
+		case 'H':
+			erase([1,0,0,-1,1,-1]);
+			break;
+		case 'I':
+			erase([-1,0,0,-1,-1,-1]);
+			break;
+
+		default:
+			break;
+		}
+		// Set the tunnel part
+	};
+	
 	
 	this.getPlayerPos = function() {
 		return playerPos;
