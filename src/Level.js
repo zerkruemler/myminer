@@ -177,6 +177,13 @@ function Level(){
 		}
 	};
 	
+	this.rgbColorAt = function(x,y,r,g,b){
+		pos=(y*levelImage.width+x)*4;
+		levelImage.data[pos+0]=r;
+		levelImage.data[pos+1]=g;
+		levelImage.data[pos+2]=b;
+		levelImage.data[pos+3]=255;
+	};
 	this.colorAt = function(x,y,color){
 		pos=(y*levelImage.width+x)*4;
 		levelImage.data[pos+0]=parseInt(color.substring(0,2),16);
@@ -202,14 +209,8 @@ function Level(){
 		var startY=y*blocksize;
 		for (var addX = 0; addX < blocksize; addX++) {
 			for (var addY = 0; addY < blocksize; addY++) {
-
 				var ypercent=(startY+addY)/levelImage.height*255;
-				var color='FF4040';
-//						levelImage.data[base+0]=255-ypercent/4;
-//						levelImage.data[base+1]=255-ypercent;
-//						levelImage.data[base+2]=40;
-//						levelImage.data[base+3]=255;
-				this.colorAt(startX+addX,startY+addY,'FF0000');
+				this.rgbColorAt(startX+addX,startY+addY,255-ypercent/4,255-ypercent,40);
 			}
 		}
 		levelData[y][x]=1;

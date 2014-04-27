@@ -13,7 +13,7 @@
      Height is set accordingly
   
   Collectible objects
-    Random position
+*    Random position
     Amount according to the level
     
   Graphics
@@ -28,6 +28,7 @@
     number of enemies
     
   Power ups
+  	Money
     Dynamite
     Faster Run
     Stop water
