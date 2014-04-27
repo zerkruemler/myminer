@@ -20,7 +20,6 @@ function GameView() {
 	var levelImage=undefined;
 	var screenSize={};
 	var sprites=undefined;
-	
 
 	var $this=this;
 
@@ -276,5 +275,9 @@ function GameView() {
             return true;
         }
     };
+    
+    this.drawScores = function() {
+		
+	};
     
 }

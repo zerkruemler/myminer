@@ -19,6 +19,11 @@ function GameModel() {
 			y:24
 	};
 	var level = undefined;
+//	var scores = {
+//		level:1,
+//		
+//		
+//	};
 
 
 	
@@ -67,6 +72,7 @@ function GameModel() {
 		keyUp           : new Event(),
 		walk			: new Event(),
 		drowned			: new Event(),
+		finished        : new Event(),
 	};
 	
 	this.loadLevel = function(levelNumber){
@@ -145,6 +151,12 @@ function GameModel() {
 		var xTo=0;
 		var yTo=0;
 		if(playerPos.fine==0 ){
+			// Check if player returned to tower
+			var levelSize = level.getLevelSize();
+			if(playerPos.x===levelSize.x/2+1 && playerPos.y===7 && direction===c.DIRECTION.UP){
+				events.finished.notify();
+				// End level
+			}
 			// Turning just possible on center of fields
 			var offset=getOffset(direction);
 			if(checkDirectionPossible(playerPos,offset)){

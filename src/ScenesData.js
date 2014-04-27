@@ -150,6 +150,9 @@ function ScenesData(){
 				model.registerEvent('drowned',function(){
 					util.scenes.setScene("Died");
 				});
+				model.registerEvent('finished',function(){
+					util.scenes.setScene("LevelWon");
+				});
 			},
 			
 			regularCallback : function() {
@@ -180,6 +183,7 @@ function ScenesData(){
 					view.clearBackground();
 					view.redrawBackground(model.getXPos());
 					view.drawPlayer(model.getPlayerPos());
+					view.drawScores();
 //					this.clearBackground=false;
 				}
 				// Updates which are done each frame (fast animations)
@@ -189,92 +193,64 @@ function ScenesData(){
 	};
 
 	this.levelWon = {
-			name : "LevelWon",
-			
-//			start: function(){
-//				// Init Model
-//				var animals = model.getAnimals();
-//				animals.removeBees();
-//				// Add the buttons
-//				util.buttons.removeAll();
-//				util.buttons.addButton({
-//					text:'To Title',
-//					id: c.buttons.toTitle,
-//					x:5,
-//					y:8,
-//					sx:8,
-//					sy:2,
-//					callback:function(){
-//						flowerData=model.saveFlower();
-//						util.scenes.setScene("Title");
-//				    }
-//				});
-//				util.buttons.addButton({
-//					text:'Next Level',
-//					id: c.buttons.toNextLevel,
-//					x:17,
-//					y:8,
-//					sx:8,
-//					sy:2,
-//					callback:function(){
-//						flowerData=model.saveFlower();
-//						level+=1;
-//						util.scenes.setScene("Game");
-//				    },
-//				});
-//			},
-//			
-//			regularCallback : function() {
-//			},
-//			
-//			redraw : function(view){
-//				this.redrawFlower-=1;
-//				if(this.redrawFlower<=0){
-//					this.redrawFlower=5;
-//					view.clear();
-//					view.redrawFlower();
-//					model.updateFlower();
-//				}
-//				if(model.isUiRedrawNeeded()===true){
-//					view.clearUi();
-//					view.showGauges();
-//				}
-//				view.clearAnimals();
-//				view.drawAnimals();
-//				// Updates which are done each frame (fast animations)
-//				model.updateAnimals();
-//			},
+		name : "LevelWon",
+		counter:0,
+		
+		start: function(){
+			model.uiRedrawNeeded();
+		},
+		
+		regularCallback : function() {
+			this.counter++;
+			if(this.counter>100){
+				this.counter=0;
+				util.scenes.setScene("Game");
+			}
+		},
+		
+		redraw : function(view){
+			if(model.isUiRedrawNeeded()){
+				view.layerUi();
+				view.clearBackground();
+				view.text({
+					text:"Survived!",
+					x:18,y:2,
+					size:4,
+					center:true,
+				});
+			}
+		},
 	};
 	
 	
 	this.died = {
-	name : "Died",
-	counter:0,
-	
-	start: function(){
-		model.uiRedrawNeeded();
-	},
-	
-	regularCallback : function() {
-		this.counter++;
-		if(this.counter>100){
-			this.counter=0;
-			util.scenes.setScene("Game");
-		}
-	},
-	
-	redraw : function(view){
-		if(model.isUiRedrawNeeded()){
-			view.layerUi();
-			view.clearBackground();
-			view.text({
-				text:"You are Dead",
-				x:18,y:2,
-				size:4,
-				center:true,
-			});
-		}
-	},
-};
+		name : "Died",
+		counter:0,
+		
+		start: function(){
+			model.uiRedrawNeeded();
+		},
+		
+		regularCallback : function() {
+			this.counter++;
+			if(this.counter>100){
+				this.counter=0;
+				util.scenes.setScene("Game");
+			}
+		},
+		
+		redraw : function(view){
+			if(model.isUiRedrawNeeded()){
+				view.layerUi();
+				view.clearBackground();
+				view.text({
+					text:"You are Dead",
+					x:18,y:2,
+					size:4,
+					center:true,
+				});
+			}
+		},
+	};
 	
 }
