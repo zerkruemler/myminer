@@ -57,11 +57,20 @@ function Level(){
 			ypercent=yPos/(levelImage.height*levelImage.width*4)*255;
 			for (var xPos = 0; xPos < levelImage.width*4; xPos+=4) {
 				base=xPos+yPos;
-				levelImage.data[base+0]=255-ypercent/4;
-				levelImage.data[base+1]=255-ypercent;
-				levelImage.data[base+2]=40;
-				levelImage.data[base+3]=255;
-			}			
+				if(yPos>(levelImage.height-blocksize)*levelImage.width*4){
+					// Ground level
+					levelImage.data[base+0]=100;
+					levelImage.data[base+1]=20;
+					levelImage.data[base+2]=20;
+					levelImage.data[base+3]=255;
+				}else{
+					levelImage.data[base+0]=255-ypercent/4;
+					levelImage.data[base+1]=255-ypercent;
+					levelImage.data[base+2]=40;
+					levelImage.data[base+3]=255;
+				}
+			}
+				
 		}
 		
 		// Left and right limitation
@@ -90,6 +99,74 @@ function Level(){
 //			this.setTunnel(levelSize.x/2+1,yBlock);
 //			
 //		}
+	};
+	
+	this.addCollectibleObjects = function(ammount){
+		// Adds some collectible objects to the game field
+		// The objects are marked like this:
+		// A= Single object
+		// B/C = Object which is two fields wide
+		// D
+		// E = Object which is two fields high
+		// F/G
+		// H/I = Object which is four fields big
+		var leftRight=0;
+		for (var objectNumber = 0; objectNumber < ammount; objectNumber++) {
+			// First get a position
+			posX=Math.floor(Math.random()*(levelSize.x/2-6))+3;
+			posY=Math.floor(Math.random()*(levelSize.y-1))+3;
+			type=Math.floor(Math.random()*4);
+			// Distribute the objects evenly to left and right
+			posX+=leftRight*levelSize.x/2;
+			leftRight=1-leftRight;
+			// Now set them
+			this.setObject(posX,posY,type);
+		};
+	};
+	
+	this.setObject = function(x,y,type) {
+		// shows the object at the position
+	
+		switch (type) {
+		case 0:
+			this.copyImage(x,y,'A');
+			levelData[y][x]='A';
+			break;
+		case 1:
+			this.copyImage(x,y,'B');
+			levelData[y][x]='B';
+			this.copyImage(x+1,y,'C');
+			levelData[y][x+1]='C';
+			break;
+		case 2:
+			this.copyImage(x,y,'D');
+			levelData[y][x]='D';
+			this.copyImage(x,y+1,'E');
+			levelData[y+1][x]='E';
+			break;
+		case 3:
+			this.copyImage(x,y,'F');
+			levelData[y][x]='F';
+			this.copyImage(x,y+1,'G');
+			levelData[y+1][x]='G';
+			this.copyImage(x,y,'H');
+			levelData[y][x]='H';
+			this.copyImage(x,y+1,'I');
+			levelData[y+1][x]='I';
+			break;
+		default:
+			break;
+		}
+	};
+
+	this.copyImage = function(x,y,number) {
+		var startX=x*blocksize;
+		var startY=y*blocksize;
+		for (var addX = 0; addX < blocksize; addX++) {
+			for (var addY = 0; addY < blocksize; addY++) {
+				this.colorAt(startX+addX,startY+addY,'40FF40');
+			}
+		}
 	};
 	
 	this.colorAt = function(x,y,color){

@@ -17,6 +17,7 @@
     
   Graphics
 *  	Player
+	Player animation and direction
   	Enemies
   	Drill tower
 

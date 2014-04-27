@@ -174,6 +174,7 @@ function ScenesData(){
 					start=level.getStartPoint();
 					start.y=level.getLevelSize().y-1;
 					level.initWater(start.x, start.y);
+					level.addCollectibleObjects(10);
 				}
 				if(this.clearBackground===true){
 					view.clearBackground();

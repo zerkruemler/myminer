@@ -136,14 +136,13 @@ function GameView() {
 	};
 	
 	this.createLevelImage = function() {
-		levelImage=context.createImageData(contextSize.x*2,contextSize.y-blocksize);
+		levelImage=context.createImageData(contextSize.x*2,contextSize.y);
 		ui.level.addLevelImage(levelImage,blocksize);
 		ui.level.drawLevelImage();
 		ui.level.createLevel();
 	};
 
 	this.redrawBackground = function(xPos){
-		this.fillRect(4,4,5,5);
 		context.putImageData(levelImage,xPos*blocksize,0);		
 	};
 	
