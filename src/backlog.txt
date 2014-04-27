@@ -13,6 +13,7 @@
   
   Collectible objects
     Random position
+    Amount according to the level
     
   Graphics
 *  	Player
