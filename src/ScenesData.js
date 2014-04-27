@@ -18,6 +18,7 @@ function ScenesData(){
 			
 			start: function(){
 				// Add the buttons
+				model.clearEvents('key');
 				model.registerEvent('key',function(key) {
 					if(key===c.DIRECTION.BUTTON){
 						util.scenes.setScene("Game");
@@ -77,9 +78,11 @@ function ScenesData(){
 				this.clearBackground=true;
 				model.uiRedrawNeeded();
 				model.startLevel();
+				model.clearEvents('drowned');
 				model.registerEvent('drowned',function(){
 					util.scenes.setScene("Died");
 				});
+				model.clearEvents('finished');
 				model.registerEvent('finished',function(){
 					util.scenes.setScene("LevelWon");
 				});

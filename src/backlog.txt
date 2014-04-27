@@ -1,3 +1,5 @@
+xandy
+
 **  Scrolling
 **  	when player is near to the border
 
