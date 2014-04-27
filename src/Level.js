@@ -121,15 +121,22 @@ function Level(){
 				// Distribute the objects evenly to left and right
 				posX+=leftRight*levelSize.x/2;
 				// Check if set is possible
-			}while((this.setPosible===false));
+			}while((this.setPossible(posX,posY)===false));
 			leftRight=1-leftRight;
 			// Now set them
 			this.setObject(posX,posY,type);
 		};
 	};
 	
-	this.setPossible = function() {
-		return false;
+	this.setPossible = function(posX,posY) {
+		if(this.levelTile(posX,posY)!==1){
+			return false;
+		}
+		var around=this.getFreeAround(posX, posY,1);
+		if(around.length!==4){
+			return false;
+		}
+		return true;
 	};
 	
 	this.setObject = function(x,y,type) {
@@ -251,13 +258,16 @@ function Level(){
 		}
 	};
 	
-	this.getFreeAround = function(x,y) {
+	this.getFreeAround = function(x,y,tile) {
+		if(tile===undefined){
+			tile=0;
+		}
 		// Get the tiles around this one which are free
 		around=[];
 		var $this=this;
 		
 		var checkFree = function (xTo,yTo) {
-			if($this.levelTile(x+xTo,y+yTo)===0){
+			if($this.levelTile(x+xTo,y+yTo)===tile){
 				var isUp=false;
 				if(yTo===-1){
 					isUp=true;

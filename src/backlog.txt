@@ -13,7 +13,8 @@
      Height is set accordingly
   
   Collectible objects
-*    Random position
+**    Random position
+**    Don't overlap
     Amount according to the level
     
   Graphics
