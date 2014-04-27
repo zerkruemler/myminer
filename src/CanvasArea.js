@@ -35,6 +35,12 @@ function CanvasArea() {
 	this.removeKeyDownEvent =function(callback){
 		window.removeEventListener("keydown",callback,true);
 	};
+	this.addKeyUpEvent =function(callback){
+		window.addEventListener("keyup",callback,true);
+	};
+	this.removeKeyUpEvent =function(callback){
+		window.removeEventListener("keyup",callback,true);
+	};
 
 	
     this.getContextBackground = function(){

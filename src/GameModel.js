@@ -37,10 +37,19 @@ function GameModel() {
 	this.startLevel = function(){
 		
 		this.resetPlayerPos();
+		this.clearEvents('key');
+		this.clearEvents('keyUp');
+		direction=c.DIRECTION.STOP;
 		this.registerEvent('key', function(key) {
 			// Direction changed
 			if(key!==c.DIRECTION.BUTTON){
 				direction=key;
+			}
+		});
+		this.registerEvent('keyUp', function(key) {
+			// Key up, stop player, when the same key was lifted, which was pushed
+			if(key===direction){
+				direction=c.DIRECTION.STOP;
 			}
 		});
 	};
@@ -54,6 +63,7 @@ function GameModel() {
 		startLevel 		: new Event(),
 		game 			: new Event(),
 		key             : new Event(),
+		keyUp           : new Event(),
 		walk			: new Event(),
 		drowned			: new Event(),
 	};
@@ -76,9 +86,14 @@ function GameModel() {
 		events.buttonSelection.notify(button.id);
 	};
 	
-	this.keyPressed = function(key){
-		events.key.notify(key);
+	this.keyPressed = function(key,down){
+		if(down===true){
+			events.key.notify(key);
+		}else{
+			events.keyUp.notify(key);
+		}
 	};
+	
 	this.resetPlayerPos = function() {
 		playerPos.x=level.getStartPoint().x;
 		playerPos.y=level.getStartPoint().y;
@@ -138,9 +153,11 @@ function GameModel() {
 				}
 			}else{
 				currentDirection=c.DIRECTION.STOP;
+				direction=currentDirection;
 				events.walk.notify(0);  // Stop walking (for sound)
 			}
-			direction=c.DIRECTION.STOP;
+// No auto stop			
+//			direction=c.DIRECTION.STOP;
 		}
 		var offset=getOffset(currentDirection);
 		xTo=offset.x;
@@ -177,10 +194,8 @@ function GameModel() {
 		if(xPos*-1+10>playerPos.xFine){
 			xPos=(playerPos.xFine-10)*-1;
 		}
-		
-		return direction;
-		
 	};
+	
 	var getOffset = function(direction){
 		var xTo=0;
 		var yTo=0;
