@@ -131,6 +131,7 @@ function Level(){
 	};
 	
 	this.levelFree = function(x,y){
+		// Field is free
 		if(levelData[y][x]===0){
 			return true;
 		}else{
@@ -177,6 +178,7 @@ function Level(){
 	this.flow = function(){
 		var endLength=ends.length;
 		var flown=false; // any field has flown
+		var newEnds=[];
 		for (var endNumber = 0; endNumber < endLength; endNumber++) {
 			var end = ends[endNumber];
 			var frees = this.getFreeAround(end.x,end.y);
@@ -186,20 +188,17 @@ function Level(){
 						y:frees[freeNumber].y						
 				};
 				if(frees[freeNumber].up===true&&flown===true){
+					// flow not up when it was flown elsewhere
 					newPos.y+=1;
-					ends.push(newPos);
+					newEnds.push(newPos);
 					continue;
 				}
 				this.setWater(newPos.x,newPos.y);
 				water.push(newPos);
 				flown=true;
-				
-				ends[endNumber]=newPos;
-				if(freeNumber>0){
-					// A fork
-					ends.push(newPos);
-				}
+				newEnds.push(newPos);
 			}
 		}
+		ends=newEnds;
 	};
 }

@@ -133,6 +133,8 @@ function ScenesData(){
 	this.game = {
 			name : "Game",
 			clearBackground : false,
+			delay: 10,
+			counter: 0,
 			
 			start: function(){
 				// Init Model
@@ -151,12 +153,24 @@ function ScenesData(){
 //				model.setXPos(model.getXPos()-0.1);
 				model.movePlayer();
 //				this.clearBackground=true;
+				this.counter++;
+				if(this.counter>10){
+					this.counter=0;
+					this.delay--;
+					if(this.delay<0){
+						model.getLevel().flow();
+					}
+				}
 			},
 			
 			redraw : function(view){
 				if(model.isUiRedrawNeeded()===true){
 					view.clearUi();
 					view.createLevelImage();
+					var level=model.getLevel();
+					start=level.getStartPoint();
+					start.y=level.getLevelSize().y-1;
+					level.initWater(start.x, start.y);
 				}
 				if(this.clearBackground===true){
 					view.clearBackground();
