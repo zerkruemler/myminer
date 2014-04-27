@@ -10,6 +10,39 @@ function Sprites() {
 		playerWalk2 : {
 			path : 'player-walk2'
 		},
+		drill1 : {
+			path : 'drill1'
+		},
+		drill2 : {
+			path : 'drill2'
+		},
+		a : {
+			path : 'a'
+		},
+		b : {
+			path : 'b'
+		},
+		c : {
+			path : 'c'
+		},
+		d : {
+			path : 'd'
+		},
+		e : {
+			path : 'e'
+		},
+		f : {
+			path : 'f'
+		},
+		g : {
+			path : 'g'
+		},
+		h : {
+			path : 'h'
+		},
+		i : {
+			path : 'i'
+		},
 	};
 
 	this.loadSprites = function(callback) {

@@ -11,16 +11,19 @@ function CanvasArea() {
         size.x = c.CANVAS_SIZE_X;
     	size.y = c.CANVAS_SIZE_Y;
         canvasBackground = document.getElementById('background');
-        canvasBackground.width  = size.x;
-        canvasBackground.height = size.y;
         canvasBackground.style.border = "2px solid red";
         contextBackground = canvasBackground.getContext('2d');
-
         canvasUi = document.getElementById('ui');
-        canvasUi.width  = size.x;
-        canvasUi.height = size.y;
         canvasUi.style.border = "2px solid blue";
         contextUi = canvasUi.getContext('2d');
+        this.resize(size);
+    };
+    this.resize = function(newSize){
+    	size=newSize;
+        canvasBackground.width  = size.x;
+        canvasBackground.height = size.y;
+        canvasUi.width  = size.x;
+        canvasUi.height = size.y;
     };
     this.addEventListener = function(name,functionName){
     	canvasUi.addEventListener(name,functionName);

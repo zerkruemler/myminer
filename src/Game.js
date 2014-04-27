@@ -60,6 +60,7 @@ function Game() {
     	buttonsUi.reset(buttons,gameView);
     	
     	level.reset();
+    	level.setSprites(sprites);
 
         canvasArea.reset();
         scenes.reset(gameModel);

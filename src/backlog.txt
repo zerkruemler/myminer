@@ -21,7 +21,7 @@
 *  	Player
 	Player animation and direction
   	Enemies
-  	Drill tower
+*  	Drill tower
 
   Levels
     Water speed

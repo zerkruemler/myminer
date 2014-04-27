@@ -36,6 +36,7 @@ function GameModel() {
 
 	this.startLevel = function(){
 		
+		level.reset();
 		this.resetPlayerPos();
 		this.clearEvents('key');
 		this.clearEvents('keyUp');

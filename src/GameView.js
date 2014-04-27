@@ -23,6 +23,12 @@ function GameView() {
 	
 
 	var $this=this;
+
+	function resizeEvent(){
+		var xSize=document.documentElement.clientWidth-10;
+		var ySize=document.documentElement.clientHeight-10;
+		$this.resize({x:xSize,y:ySize});
+	};
 	
 	this.reset = function(gameModelImport,canvasArea){
 		gameModel=gameModelImport;
@@ -33,7 +39,10 @@ function GameView() {
 		canvas=canvasArea;
 		this.resize(canvasArea.getSize());
 		$this=this;
+//        window.addEventListener("resize",resizeEvent);
+        resizeEvent();
 	};
+	
 	this.layerBackground = function() {
 		context=contextBackground;
 	};
@@ -62,7 +71,7 @@ function GameView() {
 		blocksize = Math.min(newSize.x/screenSize.x|0,newSize.y/screenSize.y|0); // |0  = integer value of value make sure blocksize is integer
 		contextSize.x = blocksize*screenSize.x;    
 		contextSize.y = blocksize*screenSize.y;
-		hexSize=blocksize;
+		canvas.resize(contextSize);
 	};
 	
 	this.drawPlayer=function(playerPos){

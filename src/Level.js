@@ -11,11 +11,21 @@ function Level(){
 	var levelData=[];
 	var water=[];
 	var ends=[];
-			
-
+	var context=undefined;
+	var sprites=undefined;
 	
 	this.reset = function() {
-		
+		var canvas=document.getElementById('image');
+        canvas.width  = 50;
+        canvas.height = 50;
+        canvas.style.border = "2px solid red";
+        context=canvas.getContext("2d");
+
+		water=[];
+		ends=[];
+	};
+	this.setSprites = function(spritesIn) {
+		sprites=spritesIn;
 	};
 	
 	this.getLevelSize = function() {
@@ -63,6 +73,12 @@ function Level(){
 					levelImage.data[base+1]=20;
 					levelImage.data[base+2]=20;
 					levelImage.data[base+3]=255;
+				}else if(yPos<(blocksize*6)*levelImage.width*4){
+					// Sky
+					levelImage.data[base+0]=ypercent;
+					levelImage.data[base+1]=ypercent;
+					levelImage.data[base+2]=255;
+					levelImage.data[base+3]=255;
 				}else{
 					levelImage.data[base+0]=255-ypercent/4;
 					levelImage.data[base+1]=255-ypercent;
@@ -72,11 +88,15 @@ function Level(){
 			}
 				
 		}
+		// Copy to playfield
+		this.setImage(levelSize.x/2+1,6,'drill1');
+		this.setImage(levelSize.x/2+1,5,'drill2');
+		
 		
 		// Left and right limitation
 		
 		var drawLimit = function(xStart) {
-			for (var yPos = 0; yPos < levelImage.height; yPos++) {
+			for (var yPos = 6*blocksize; yPos < levelImage.height; yPos++) {
 				this.colorAt(xStart+0,yPos,'0050f0');
 				this.colorAt(xStart+1,yPos,'1060f0');
 				this.colorAt(xStart+2,yPos,'2070f0');
@@ -91,10 +111,6 @@ function Level(){
 		drawLimit.call(this,4);
 		drawLimit.call(this,levelImage.width-14);
 		
-		for (var yPos = 0; yPos < levelImage.height; yPos++) {
-			this.colorAt(yPos,yPos,'00ff00');
-		}		
-
 //		for (var yBlock = this.getStartPoint().y; yBlock < levelSize.y; yBlock++) {
 //			this.setTunnel(levelSize.x/2+1,yBlock);
 //			
@@ -133,6 +149,10 @@ function Level(){
 			return false;
 		}
 		var around=this.getFreeAround(posX, posY,1);
+		if(around.length!==4){
+			return false;
+		}
+		var around=this.getFreeAround(posX, posY,1,true);
 		if(around.length!==4){
 			return false;
 		}
@@ -175,13 +195,15 @@ function Level(){
 	};
 
 	this.copyImage = function(x,y,number) {
-		var startX=x*blocksize;
-		var startY=y*blocksize;
-		for (var addX = 0; addX < blocksize; addX++) {
-			for (var addY = 0; addY < blocksize; addY++) {
-				this.colorAt(startX+addX,startY+addY,'40FF40');
+		if(this.setImage(x,y,number.toLowerCase())===true){
+			var startX=x*blocksize;
+			var startY=y*blocksize;
+			for (var addX = 0; addX < blocksize; addX++) {
+				for (var addY = 0; addY < blocksize; addY++) {
+					this.colorAt(startX+addX,startY+addY,'40FF40');
+				}
 			}
-		}
+		};
 	};
 	
 	this.rgbColorAt = function(x,y,r,g,b){
@@ -198,6 +220,40 @@ function Level(){
 		levelImage.data[pos+2]=parseInt(color.substring(4,6),16);
 		levelImage.data[pos+3]=255;
 	};
+
+	this.setImage = function(x,y,imageName){
+		// Drilling tower
+		var sprite = sprites.getSprite(imageName);
+		context.drawImage(sprite.image,0,0,16,16);
+		try {
+			var image = context.getImageData(0,0,16,16);
+			// copy the image to the position
+			var startX=x*blocksize;
+			var startY=y*blocksize;
+			var start=(startY*levelImage.width+startX)*4;
+			var pos=0;
+			var pos2=0;
+			var sourceX=0;
+			var sourceY=0;
+			for (var addX = 0; addX < blocksize; addX++) {
+				sourceX=Math.floor(addX/blocksize*16);
+				for (var addY = 0; addY < blocksize; addY++) {
+					sourceY=Math.floor(addY/blocksize*16);
+					pos=(addY*levelImage.width+addX)*4+start;
+					pos2=(sourceY*image.width+sourceX)*4;
+					if(image.data[pos2+0]+image.data[pos2+1]+image.data[pos2+2]<765){
+						levelImage.data[pos+0]=image.data[pos2+0];
+						levelImage.data[pos+1]=image.data[pos2+1];
+						levelImage.data[pos+2]=image.data[pos2+2];
+					}
+				}
+			}
+		}catch(e){
+			return true;
+		}
+
+	};
+	
 	
 	this.setTunnel = function(x,y){
 		// sets a tunnelpart according to the blocksize
