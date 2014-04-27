@@ -152,6 +152,7 @@ function GameModel() {
 				playerPos.fine=0;
 				playerPos.x+=xTo;
 				playerPos.y+=yTo;
+				level.setTunnel(playerPos.x,playerPos.y);
 			}
 		}
 		playerPos.xFine=playerPos.x+xTo*playerPos.fine/c.PLAYER.SPEED;

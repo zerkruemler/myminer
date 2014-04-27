@@ -124,5 +124,36 @@ describe("Water", function() {
 		  expect(water[2].x).toEqual(start.x+1);
 		  expect(water[2].y).toEqual(start.y);
 	  });
+	  it("init + tunnel right(2) + left(1) + flow twice should flow to the correct field", function() {
+		  level.setTunnel(start.x+1, start.y);
+		  level.setTunnel(start.x+2, start.y);
+		  level.setTunnel(start.x-1, start.y);
+		  level.flow();
+		  level.flow();
+		  var water=level.getWater();
+		  expect(water.length).toEqual(4);
+		  expect(water[1].x).toEqual(start.x-1);
+		  expect(water[1].y).toEqual(start.y);
+		  expect(water[2].x).toEqual(start.x+1);
+		  expect(water[2].y).toEqual(start.y);
+		  expect(water[3].x).toEqual(start.x+2);
+		  expect(water[3].y).toEqual(start.y);
+	  });
+	  it("init + tunnel right(->->/\) + flow (3) should flow to the correct field", function() {
+		  level.setTunnel(start.x+1, start.y);
+		  level.setTunnel(start.x+2, start.y);
+		  level.setTunnel(start.x+2, start.y-1);
+		  level.flow();
+		  level.flow();
+		  level.flow();
+		  var water=level.getWater();
+		  expect(water.length).toEqual(4);
+		  expect(water[1].x).toEqual(start.x+1);
+		  expect(water[1].y).toEqual(start.y);
+		  expect(water[2].x).toEqual(start.x+2);
+		  expect(water[2].y).toEqual(start.y);
+		  expect(water[3].x).toEqual(start.x+2);
+		  expect(water[3].y).toEqual(start.y-1);
+	  });
   });
 });

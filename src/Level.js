@@ -176,6 +176,7 @@ function Level(){
 	
 	this.flow = function(){
 		var endLength=ends.length;
+		var flown=false; // any field has flown
 		for (var endNumber = 0; endNumber < endLength; endNumber++) {
 			var end = ends[endNumber];
 			var frees = this.getFreeAround(end.x,end.y);
@@ -184,13 +185,14 @@ function Level(){
 						x:frees[freeNumber].x,
 						y:frees[freeNumber].y						
 				};
-				if(frees[freeNumber].up===true&&freeNumber!==0){
+				if(frees[freeNumber].up===true&&flown===true){
 					newPos.y+=1;
 					ends.push(newPos);
 					continue;
 				}
 				this.setWater(newPos.x,newPos.y);
 				water.push(newPos);
+				flown=true;
 				
 				ends[endNumber]=newPos;
 				if(freeNumber>0){
