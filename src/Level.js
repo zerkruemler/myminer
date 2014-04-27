@@ -180,13 +180,15 @@ function Level(){
 			var end = ends[endNumber];
 			var frees = this.getFreeAround(end.x,end.y);
 			for (var freeNumber = 0; freeNumber < frees.length; freeNumber++) {
+				var newPos={
+						x:frees[freeNumber].x,
+						y:frees[freeNumber].y						
+				};
 				if(frees[freeNumber].up===true&&freeNumber!==0){
+					newPos.y+=1;
+					ends.push(newPos);
 					continue;
 				}
-				var newPos={
-					x:frees[freeNumber].x,
-					y:frees[freeNumber].y						
-				};
 				this.setWater(newPos.x,newPos.y);
 				water.push(newPos);
 				

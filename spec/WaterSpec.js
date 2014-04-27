@@ -28,33 +28,33 @@ describe("Water", function() {
 	  });
 	
 	  it("init + flow should flow to another field", function() {
-		  var water=level.getWater();
 		  level.flow();
+		  var water=level.getWater();
 		  expect(water.length).toEqual(2);
 		  expect(water[1].x).toEqual(start.x);
 		  expect(water[1].y).toEqual(start.y+1);
 	  });
 	  it("init + flow twice should flow to the correct field", function() {
+		  level.flow();
+		  level.flow();
 		  var water=level.getWater();
-		  level.flow();
-		  level.flow();
 		  expect(water.length).toEqual(3);
 		  expect(water[2].x).toEqual(start.x);
 		  expect(water[2].y).toEqual(start.y+2);
 	  });
 	  it("init + flow trice should flow to the correct field", function() {
+		  level.flow();
+		  level.flow();
+		  level.flow();
 		  var water=level.getWater();
-		  level.flow();
-		  level.flow();
-		  level.flow();
 		  expect(water.length).toEqual(4);
 		  expect(water[3].x).toEqual(start.x);
 		  expect(water[3].y).toEqual(start.y+3);
 	  });
 	  it("init + add a tunnel to the right + flow should flow to the correct field", function() {
-		  var water=level.getWater();
 		  level.setTunnel(start.x+1, start.y);
 		  level.flow();
+		  var water=level.getWater();
 		  expect(water.length).toEqual(3);
 		  expect(water[1].x).toEqual(start.x+1);
 		  expect(water[1].y).toEqual(start.y);
@@ -88,19 +88,41 @@ describe("Water", function() {
 		 expect(water.length).toEqual(1);
 	  });
 	  it("init + flow should flow to the correct field", function() {
-		  var water=level.getWater();
 		  level.flow();
+		  var water=level.getWater();
 		  expect(water.length).toEqual(2);
 		  expect(water[1].x).toEqual(start.x);
 		  expect(water[1].y).toEqual(start.y-1);
 	  });
 	  it("init + tunnel right + flow should flow to the correct field", function() {
 		  level.setTunnel(start.x+1, start.y);
-		  var water=level.getWater();
 		  level.flow();
+		  var water=level.getWater();
 		  expect(water.length).toEqual(2);
 		  expect(water[1].x).toEqual(start.x+1);
 		  expect(water[1].y).toEqual(start.y);
+	  });
+	  it("init + tunnel right + twice flow should flow to the correct field", function() {
+		  level.setTunnel(start.x+1, start.y);
+		  level.flow();
+		  var water=level.getWater();
+		  expect(water.length).toEqual(2);
+		  level.flow();
+		  var water=level.getWater();
+		  expect(water.length).toEqual(3);
+		  expect(water[2].x).toEqual(start.x);
+		  expect(water[2].y).toEqual(start.y-1);
+	  });
+	  it("init + tunnel right + left + flow should flow to the correct field", function() {
+		  level.setTunnel(start.x+1, start.y);
+		  level.setTunnel(start.x-1, start.y);
+		  level.flow();
+		  var water=level.getWater();
+		  expect(water.length).toEqual(3);
+		  expect(water[1].x).toEqual(start.x-1);
+		  expect(water[1].y).toEqual(start.y);
+		  expect(water[2].x).toEqual(start.x+1);
+		  expect(water[2].y).toEqual(start.y);
 	  });
   });
 });
