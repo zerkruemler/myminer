@@ -66,6 +66,8 @@ function Game() {
         // Add all scenes
         scenes.addScene(scenesData.title);
         scenes.addScene(scenesData.game);
+        scenes.addScene(scenesData.died);
+        scenes.addScene(scenesData.levelWon);
         
         scenesData.reset(gameModel);
         gameModel.reset();

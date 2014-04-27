@@ -130,17 +130,13 @@ function Level(){
 		return water;
 	};
 	
-	this.levelFree = function(x,y){
+	this.levelTile = function(x,y){
 		// Field is free
-		if(levelData[y][x]===0){
-			return true;
-		}else{
-			return false;
-		};
+		return levelData[y][x];
 	};
 
 	this.initWater = function(x,y) {
-		if(this.levelFree(x,y)===true){
+		if(this.levelTile(x,y)===0){
 			water.push({x:x,y:y});
 			ends.push({x:x,y:y});
 			this.setWater(x,y);
@@ -157,7 +153,7 @@ function Level(){
 		var $this=this;
 		
 		var checkFree = function (xTo,yTo) {
-			if($this.levelFree(x+xTo,y+yTo)===true){
+			if($this.levelTile(x+xTo,y+yTo)===0){
 				var isUp=false;
 				if(yTo===-1){
 					isUp=true;

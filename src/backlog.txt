@@ -4,13 +4,16 @@
 **  Player movement
 **  	end at top/bottom
 **  	end at sides
-  	
 
   Water flow
-     To free field
-     At all open sides
+**   To free field
+**   Kills Player
+*    At all open sides
      Height is set accordingly
   
+  Collectible objects
+    Random position
+    
   Graphics
 *  	Player
   	Enemies
@@ -18,16 +21,13 @@
 
   Levels
     Water speed
+    enemies
     number of enemies
     
   Power ups
     Dynamite
     Faster Run
     Stop water
-
-  Collectible objects
-    Random position
-    
 
   Enemies
 	Movement algorithm

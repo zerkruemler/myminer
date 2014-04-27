@@ -55,6 +55,7 @@ function GameModel() {
 		game 			: new Event(),
 		key             : new Event(),
 		walk			: new Event(),
+		drowned			: new Event(),
 	};
 	
 	this.loadLevel = function(levelNumber){
@@ -152,7 +153,17 @@ function GameModel() {
 				playerPos.fine=0;
 				playerPos.x+=xTo;
 				playerPos.y+=yTo;
+				if(level.levelTile(playerPos.x,playerPos.y)===2){
+					// player drowned
+					events.drowned.notify();
+				}
 				level.setTunnel(playerPos.x,playerPos.y);
+			}
+		}else{
+			// Standing around
+			if(level.levelTile(playerPos.x,playerPos.y)===2){
+				// player drowned
+				events.drowned.notify();
 			}
 		}
 		playerPos.xFine=playerPos.x+xTo*playerPos.fine/c.PLAYER.SPEED;

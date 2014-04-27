@@ -7,6 +7,7 @@ function ScenesData(){
 	var model=undefined;
 	var cheat=true;
 	var level=1;
+	var flowRate=15;
 	
 	this.reset = function(gameModel){
 		model = gameModel;
@@ -146,7 +147,9 @@ function ScenesData(){
 				this.clearBackground=true;
 				model.uiRedrawNeeded();
 				model.startLevel();
-
+				model.registerEvent('drowned',function(){
+					util.scenes.setScene("Died");
+				});
 			},
 			
 			regularCallback : function() {
@@ -154,7 +157,7 @@ function ScenesData(){
 				model.movePlayer();
 //				this.clearBackground=true;
 				this.counter++;
-				if(this.counter>10){
+				if(this.counter>flowRate){
 					this.counter=0;
 					this.delay--;
 					if(this.delay<0){
@@ -184,10 +187,9 @@ function ScenesData(){
 			},
 	};
 
-//	this.levelWon = {
-//			name : "LevelWon",
-//			redrawFlower: 0,
-//			
+	this.levelWon = {
+			name : "LevelWon",
+			
 //			start: function(){
 //				// Init Model
 //				var animals = model.getAnimals();
@@ -241,6 +243,37 @@ function ScenesData(){
 //				// Updates which are done each frame (fast animations)
 //				model.updateAnimals();
 //			},
-//	};
+	};
+	
+	
+	this.died = {
+	name : "Died",
+	counter:0,
+	
+	start: function(){
+		model.uiRedrawNeeded();
+	},
+	
+	regularCallback : function() {
+		this.counter++;
+		if(this.counter>100){
+			this.counter=0;
+			util.scenes.setScene("Game");
+		}
+	},
+	
+	redraw : function(view){
+		if(model.isUiRedrawNeeded()){
+			view.layerUi();
+			view.clearBackground();
+			view.text({
+				text:"You are Dead",
+				x:18,y:2,
+				size:4,
+				center:true,
+			});
+		}
+	},
+};
 	
 }
